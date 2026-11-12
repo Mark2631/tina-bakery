@@ -60,7 +60,7 @@ export function CartDrawer() {
             <CakeSlice size={34} strokeWidth={1.2} />
           </span>
           <h3 className="font-display text-2xl text-plum">
-            Your cart looks a little empty 🎂
+            Your order is empty for now.
           </h3>
           <p className="mt-2 max-w-xs text-sm text-[#746b70]">
             Choose a cake and tell us how you’d like it made.
