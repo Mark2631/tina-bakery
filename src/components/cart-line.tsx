@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import type { CartItem as CartItemData } from "@/components/cart-context";
 import { useCart } from "@/components/cart-context";
-import { products } from "@/data/products";
+import { formatPrice, products } from "@/data/products";
 
 export function QuantitySelector({
   name,
@@ -62,9 +62,16 @@ export function CartItem({
           <QuantitySelector name={item.name} quantity={item.quantity} onChange={(quantity) => updateQuantity(item.id, quantity)} />
         </div>
       </div>
-      <div className="flex max-w-[108px] flex-col items-end gap-2 text-right">
-        <strong className="text-xs leading-5 text-plum">Price on WhatsApp</strong>
-        <button type="button" className="text-[#8a6f73] hover:text-red-700" aria-label={`Remove ${item.name} from cart`} onClick={() => removeItem(item.id)}>
+      <div className="flex max-w-[132px] flex-col items-end gap-1 text-right">
+        {item.unitPrice > 0 ? (
+          <>
+            <strong className="text-sm leading-5 text-plum">{formatPrice(item.totalPrice)}</strong>
+            <span className="text-[10px] text-[#82766d]">{formatPrice(item.unitPrice)} each · demo</span>
+          </>
+        ) : (
+          <strong className="text-xs leading-5 text-plum">Quote required</strong>
+        )}
+        <button type="button" className="mt-1 text-[#8a6f73] hover:text-red-700" aria-label={`Remove ${item.name} from cart`} onClick={() => removeItem(item.id)}>
           <Trash2 size={17} />
         </button>
       </div>
