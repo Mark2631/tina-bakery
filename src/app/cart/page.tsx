@@ -21,7 +21,7 @@ export default function CartPage() {
             <CakeSlice size={35} strokeWidth={1.2} />
           </span>
           <h1 className="mt-5 font-display text-3xl text-plum">
-            Your cart looks a little empty 🎂
+            Your order is empty for now.
           </h1>
           <p className="mt-2 text-[#746b70]">
             There&apos;s room for something lovely, baked just for you.
