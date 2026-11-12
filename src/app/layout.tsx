@@ -43,7 +43,6 @@ export const metadata: Metadata = {
   },
   description:
     "Explore celebration cakes, cupcakes and thoughtful bakes from Tina Bakers in Meru, Kenya. Choose a design and confirm your order directly on WhatsApp.",
-  alternates: { canonical: "/" },
   applicationName: "Tina Bakers",
   icons: { icon: "/tina-bakers-mark.svg" },
   openGraph: {
