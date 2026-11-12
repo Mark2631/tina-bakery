@@ -4,11 +4,13 @@ import { SiteShell } from "@/components/site-shell";
 import "./globals.css";
 
 const playfair = Cormorant_Garamond({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-playfair",
   display: "swap",
 });
 const jakarta = DM_Sans({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-jakarta",
   display: "swap",
