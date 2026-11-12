@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Facebook,
   HandHeart,
   Instagram,
   Leaf,
   Sparkles,
-  Wheat,
 } from "lucide-react";
 import { LocationBlock } from "@/components/location-block";
 
@@ -60,7 +60,7 @@ export default function AboutPage() {
               Good things are better when they&apos;re shared.
             </h2>
             <p className="section-copy mt-5">
-              Tina Bakers has been a part of Meru&apos;s celebrations for years.
+              Tina Bakers makes cakes and bakes for celebrations and everyday moments in Meru.
               From small family birthdays to grand wedding receptions, every
               cake that leaves our kitchen is made by hand with fresh
               ingredients and genuine care.
@@ -91,20 +91,15 @@ export default function AboutPage() {
               </a>
             </div>
           </div>
-          <div
-            className="story-art"
-            role="img"
-            aria-label="A warm illustration celebrating the Tina Bakers kitchen"
-          >
-            <div className="story-placeholder">
-              <Wheat size={34} strokeWidth={1.2} />
-              <span className="font-display text-2xl">
-                A little love in every layer.
-              </span>
-              <span className="text-xs text-[#746b70]">
-                A portrait of Tina can be added when she shares a photo.
-              </span>
-            </div>
+          <div className="story-photo">
+            <Image
+              src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=1200&q=85"
+              alt="Celebration cake detail used as a styling reference"
+              fill
+              unoptimized
+              sizes="(max-width: 900px) 90vw, 45vw"
+            />
+            <span className="story-photo-tag">A little love in every layer</span>
           </div>
         </div>
       </section>
