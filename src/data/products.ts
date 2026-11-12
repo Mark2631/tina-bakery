@@ -26,8 +26,7 @@ export type Product = {
   accent: "rose" | "cocoa" | "honey" | "berry" | "sage" | "cream";
 };
 
-// Prices are intentionally not published until Tina confirms her current menu.
-// Orders collect the customer's choices first; the final price is confirmed on WhatsApp.
+// DEMO-ONLY estimates, not Tina Bakers' verified menu prices. Confirm all figures with the owner before launch.
 export const products: Product[] = [
   {
     id: "classic-birthday",
@@ -35,7 +34,7 @@ export const products: Product[] = [
     name: "Classic Birthday Cake",
     categories: ["birthday"],
     categoryLabel: "Birthday",
-    basePrice: null,
+    basePrice: 2400,
     description: "A soft celebration sponge with a smooth buttercream finish, personalised for the day you have in mind.",
     servings: "6–8",
     imageUrl: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=1200&q=85",
@@ -49,7 +48,7 @@ export const products: Product[] = [
     name: "Chocolate Fudge Cake",
     categories: ["birthday"],
     categoryLabel: "Birthday",
-    basePrice: null,
+    basePrice: 2900,
     description: "Deep cocoa layers and a rich chocolate finish for the chocolate lover at your table.",
     servings: "6–8",
     imageUrl: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=1200&q=85",
@@ -63,7 +62,7 @@ export const products: Product[] = [
     name: "Black Forest Cake",
     categories: ["birthday"],
     categoryLabel: "Birthday",
-    basePrice: null,
+    basePrice: 2800,
     description: "Chocolate sponge, cream and cherry notes in a timeless celebration cake.",
     servings: "6–8",
     imageUrl: "https://images.unsplash.com/photo-1517427294546-5aa121f68e8a?auto=format&fit=crop&w=1200&q=85",
@@ -77,7 +76,7 @@ export const products: Product[] = [
     name: "Red Velvet Cake",
     categories: ["birthday", "wedding"],
     categoryLabel: "Birthday · Wedding",
-    basePrice: null,
+    basePrice: 3000,
     description: "A gently cocoa-kissed crumb with a smooth, elegant finish for a special table.",
     servings: "6–8",
     imageUrl: "https://images.unsplash.com/photo-1568827999250-3f6afff96e66?auto=format&fit=crop&w=1200&q=85",
@@ -91,7 +90,7 @@ export const products: Product[] = [
     name: "Graduation Cake",
     categories: ["graduation"],
     categoryLabel: "Graduation",
-    basePrice: null,
+    basePrice: 3500,
     description: "A made-to-order centrepiece for the hard work, the big day and everyone who helped you get there.",
     servings: "10–12",
     imageUrl: "https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=1200&q=85",
@@ -118,7 +117,7 @@ export const products: Product[] = [
     name: "Carrot & Walnut Cake",
     categories: ["pastries"],
     categoryLabel: "Pastries",
-    basePrice: null,
+    basePrice: 2500,
     description: "A comforting, gently spiced bake with carrot and walnut, made for tea time and thoughtful gifting.",
     servings: "Whole cake",
     imageUrl: "https://images.unsplash.com/photo-1508737804141-4c3b688e2546?auto=format&fit=crop&w=1200&q=85",
@@ -132,7 +131,7 @@ export const products: Product[] = [
     name: "Vanilla Cupcakes",
     categories: ["cupcakes"],
     categoryLabel: "Cupcakes",
-    basePrice: null,
+    basePrice: 1200,
     description: "A box of soft vanilla cupcakes finished with a smooth buttercream swirl.",
     servings: "6 cupcakes",
     imageUrl: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1200&q=85",
@@ -147,7 +146,7 @@ export const products: Product[] = [
     name: "Chocolate Cupcakes",
     categories: ["cupcakes"],
     categoryLabel: "Cupcakes",
-    basePrice: null,
+    basePrice: 1400,
     description: "A box of rich chocolate cupcakes, baked for sharing at home or at the office.",
     servings: "6 cupcakes",
     imageUrl: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=1200&q=85",
@@ -162,7 +161,7 @@ export const products: Product[] = [
     name: "Assorted Cupcakes",
     categories: ["cupcakes"],
     categoryLabel: "Cupcakes",
-    basePrice: null,
+    basePrice: 2200,
     description: "A mixed box for celebrations, team treats and a little something for everyone.",
     servings: "12 cupcakes",
     imageUrl: "https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?auto=format&fit=crop&w=1200&q=85",
@@ -177,7 +176,7 @@ export const products: Product[] = [
     name: "Fruit Cake",
     categories: ["pastries"],
     categoryLabel: "Pastries",
-    basePrice: null,
+    basePrice: 2600,
     description: "A generous, comforting fruit cake for visits, gifting and a good cup of tea.",
     servings: "Whole cake",
     imageUrl: "https://images.unsplash.com/photo-1505976378723-9726b54e9bb9?auto=format&fit=crop&w=1200&q=85",
@@ -226,8 +225,8 @@ export const flavors = [
 
 export const sizes = [
   { id: "6-inch", label: '6"', detail: "Feeds 6–8", addition: 0 },
-  { id: "8-inch", label: '8"', detail: "Feeds 10–12", addition: 0 },
-  { id: "10-inch", label: '10"', detail: "Feeds 16–20", addition: 0 },
+  { id: "8-inch", label: '8"', detail: "Feeds 10–12", addition: 900 },
+  { id: "10-inch", label: '10"', detail: "Feeds 16–20", addition: 1800 },
 ] as const;
 
 export const getProductBySlug = (slug: string) =>
