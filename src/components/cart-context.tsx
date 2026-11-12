@@ -86,6 +86,7 @@ const CartContext = createContext<{
 } | null>(null);
 
 const STORAGE_KEY = "tina-bakers-cart-v2";
+const PREVIOUS_STORAGE_KEY = "tina-bakers-cart-v1";
 
 function restoreCartItem(value: unknown): CartItem | null {
   if (!value || typeof value !== "object") return null;
@@ -134,7 +135,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (restoredRef.current) return;
     restoredRef.current = true;
     try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
+      const stored =
+        window.localStorage.getItem(STORAGE_KEY) ??
+        window.localStorage.getItem(PREVIOUS_STORAGE_KEY);
       if (stored) {
         const parsed: unknown = JSON.parse(stored);
         if (parsed && typeof parsed === "object" && "items" in parsed && Array.isArray(parsed.items)) {
