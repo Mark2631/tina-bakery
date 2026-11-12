@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { CakeSlice, ChevronRight, Sparkles } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 import type { Product } from "@/data/products";
 import { Badge } from "@/components/ui";
 import { PriceDisplay } from "@/components/price-display";
@@ -8,22 +9,20 @@ export function ProductArtwork({
   product,
   className = "",
 }: {
-  product: Pick<Product, "name" | "accent">;
+  product: Pick<Product, "name" | "accent" | "imageUrl">;
   className?: string;
 }) {
   return (
-    <div
-      className={`product-art ${className}`}
-      data-tone={product.accent}
-      aria-label={`${product.name} illustration`}
-      role="img"
-    >
-      <span className="art-stamp">
-        <CakeSlice size={31} strokeWidth={1.25} />
-      </span>
-      <span className="product-art-note">
-        Illustrative artwork
-      </span>
+    <div className={`product-art ${className}`} data-tone={product.accent}>
+      <Image
+        src={product.imageUrl}
+        alt={product.name + " style reference"}
+        fill
+        unoptimized
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw"
+        className="product-art-image"
+      />
+      <span className="product-art-note">Style reference</span>
     </div>
   );
 }
@@ -36,17 +35,12 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="product-card-copy">
           <Badge>{product.categoryLabel}</Badge>
           <h3 className="product-card-name">{product.name}</h3>
-          <PriceDisplay
-            amount={product.basePrice}
-            className="product-card-price"
-          />
+          <PriceDisplay amount={product.basePrice} className="product-card-price" />
+          <p className="product-card-detail">{product.servings}</p>
         </div>
       </Link>
       <div className="product-card-actions">
-        <Link
-          className="button button-outline w-full text-sm"
-          href={`/shop/${product.slug}`}
-        >
+        <Link className="button button-outline w-full text-sm" href={`/shop/${product.slug}`}>
           Choose options <ChevronRight size={16} />
         </Link>
       </div>
@@ -70,9 +64,7 @@ export function ProductGrid({
     );
   return (
     <div className="product-grid">
-      {products.map((product) => (
-        <ProductCard product={product} key={product.id} />
-      ))}
+      {products.map((product) => <ProductCard product={product} key={product.id} />)}
     </div>
   );
 }
