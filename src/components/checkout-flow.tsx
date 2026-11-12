@@ -558,7 +558,7 @@ export function CheckoutFlow() {
                   </div>
                 </div>
                 <div className="mt-5 border border-[#bd7b52]/30 bg-[#f8ebdc] p-4 text-sm text-[#684c42]">
-                  ⚠️ Tapping &apos;Send&apos; will open WhatsApp. Your order is{" "}
+                   Sending your request will open WhatsApp. Your order is{" "}
                   <strong>NOT confirmed</strong> until Tina Bakers replies to
                   agree availability and send M-Pesa payment details.
                 </div>
