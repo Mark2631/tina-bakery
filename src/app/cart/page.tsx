@@ -4,10 +4,9 @@ import Link from "next/link";
 import { CakeSlice } from "lucide-react";
 import { useCart } from "@/components/cart-context";
 import { CartLine } from "@/components/cart-line";
-import { formatPrice } from "@/data/products";
 
 export default function CartPage() {
-  const { items, subtotal, hydrated } = useCart();
+  const { items, hydrated } = useCart();
   if (!hydrated)
     return (
       <section className="section-wrap py-16" aria-live="polite">
@@ -43,7 +42,7 @@ export default function CartPage() {
         <div className="form-card">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <h2 className="font-display text-2xl text-plum">
-              A good choice, if we say so.
+              A good choice. Let’s confirm the details.
             </h2>
             <Link
               className="text-sm font-bold text-plum underline underline-offset-4"
@@ -61,12 +60,11 @@ export default function CartPage() {
         <aside className="h-fit bg-[#f1eadb] p-5 lg:sticky lg:top-36">
           <h2 className="font-display text-2xl text-plum">Order summary</h2>
           <div className="summary-row mt-4">
-            <span>Subtotal</span>
-            <strong className="text-plum">{formatPrice(subtotal)}</strong>
+            <span>Pricing</span>
+            <strong className="text-plum">Confirmed on WhatsApp</strong>
           </div>
           <p className="mt-2 text-xs text-[#746b70]">
-            Delivery confirmed on order. Delivery fee will be shared on
-            WhatsApp.
+            Tina confirms the product price and delivery fee with you on WhatsApp before payment.
           </p>
           <Link className="button button-plum mt-5 w-full" href="/checkout">
             Proceed to checkout
