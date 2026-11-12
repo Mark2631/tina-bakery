@@ -14,7 +14,7 @@ export type Product = {
   name: string;
   categories: CategorySlug[];
   categoryLabel: string;
-  basePrice: null;
+  basePrice: number | null;
   description: string;
   servings: string;
   imageUrl: string;
