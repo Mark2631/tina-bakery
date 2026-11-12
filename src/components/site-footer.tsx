@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
 import { whatsappUrl } from "@/lib/utils";
@@ -8,17 +9,15 @@ export function SiteFooter() {
       <div className="section-wrap">
         <div className="footer-grid">
           <div>
-            <Link className="brand-mark" href="/" aria-label="Tina Bakers home">
-              <span className="brand-seal" aria-hidden="true">
-                T
-              </span>
-              <span>
+            <Link className="brand-mark footer-brand" href="/" aria-label="Tina Bakers home">
+              <Image src="/tina-bakers-mark.svg" alt="" width={42} height={42} />
+              <span className="brand-type">
                 <span className="brand-name">Tina Bakers</span>
-                <span className="brand-subtitle">Meru · Kenya</span>
+                <span className="brand-subtitle">MERU · KENYA</span>
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm text-white/65">
-              Baked with love, made for your special moments.
+              Beautiful cakes and bakes for the moments that matter.
             </p>
           </div>
           <div>
@@ -31,13 +30,12 @@ export function SiteFooter() {
             </div>
           </div>
           <div>
-            <h2 className="footer-heading">Come by</h2>
+            <h2 className="footer-heading">Find us</h2>
             <div className="footer-link-list">
-              <Link href="/contact">Contact us</Link>
+              <Link href="/contact">Contact & location</Link>
               <span>Meru, Kenya 60200</span>
-              <span>Mon–Sat · 8:00 AM–6:30 PM</span>
-              <span>Sunday · Closed</span>
-              <Link href="/policies">Ordering &amp; policies</Link>
+              <span>Delivery areas and hours confirmed on enquiry</span>
+              <Link href="/policies">Ordering information</Link>
             </div>
           </div>
           <div>
@@ -47,28 +45,20 @@ export function SiteFooter() {
                 <MessageCircle className="mr-2 inline" size={15} />
                 WhatsApp: 0790 187 080
               </a>
-              <a
-                href="https://www.instagram.com/tina.bakers"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="https://www.instagram.com/tina.bakers" target="_blank" rel="noreferrer">
                 <Instagram className="mr-2 inline" size={15} />
                 Instagram
               </a>
-              <a
-                href="https://www.facebook.com/angelotinabakers"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="https://www.facebook.com/angelotinabakers" target="_blank" rel="noreferrer">
                 <Facebook className="mr-2 inline" size={15} />
-                Angelo Tina Bakers
+                Facebook
               </a>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2024 Tina Bakers · Meru, Kenya</span>
-          <span>Handmade here, shared with love.</span>
+          <span>© {new Date().getFullYear()} Tina Bakers · Meru, Kenya</span>
+          <span>Orders confirmed directly with the bakery.</span>
         </div>
       </div>
     </footer>
