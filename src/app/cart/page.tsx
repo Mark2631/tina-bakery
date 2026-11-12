@@ -4,9 +4,10 @@ import Link from "next/link";
 import { CakeSlice } from "lucide-react";
 import { useCart } from "@/components/cart-context";
 import { CartLine } from "@/components/cart-line";
+import { formatPrice } from "@/data/products";
 
 export default function CartPage() {
-  const { items, hydrated } = useCart();
+  const { items, hydrated, subtotal } = useCart();
   if (!hydrated)
     return (
       <section className="section-wrap py-16" aria-live="polite">
@@ -60,11 +61,11 @@ export default function CartPage() {
         <aside className="h-fit bg-[#f1eadb] p-5 lg:sticky lg:top-36">
           <h2 className="font-display text-2xl text-plum">Order summary</h2>
           <div className="summary-row mt-4">
-            <span>Pricing</span>
-            <strong className="text-plum">Confirmed on WhatsApp</strong>
+            <span>Demo estimate</span>
+            <strong className="text-plum">{formatPrice(subtotal)}</strong>
           </div>
           <p className="mt-2 text-xs text-[#746b70]">
-            Tina confirms the product price and delivery fee with you on WhatsApp before payment.
+            Sample estimate only. Tina confirms the actual product price and delivery fee on WhatsApp before payment.
           </p>
           <Link className="button button-plum mt-5 w-full" href="/checkout">
             Proceed to checkout
