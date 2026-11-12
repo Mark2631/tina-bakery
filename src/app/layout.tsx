@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { SiteShell } from "@/components/site-shell";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const playfair = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-playfair",
   display: "swap",
 });
-const jakarta = Plus_Jakarta_Sans({
+const jakarta = DM_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   display: "swap",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#A45140",
+  themeColor: "#783D49",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
