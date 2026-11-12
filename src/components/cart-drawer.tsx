@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { useCart } from "@/components/cart-context";
 import { Sheet } from "@/components/ui";
-import { formatPrice } from "@/data/products";
 import { CartLine } from "@/components/cart-line";
 import { CakeSlice, ShoppingBag } from "lucide-react";
 
 export function CartDrawer() {
-  const { items, subtotal, drawerOpen, setDrawerOpen, hydrated } = useCart();
+  const { items, drawerOpen, setDrawerOpen, hydrated } = useCart();
   return (
     <Sheet
       open={drawerOpen}
@@ -33,11 +32,11 @@ export function CartDrawer() {
           </div>
           <div className="border-t border-plum/15 pt-4">
             <div className="summary-row text-sm">
-              <span>Subtotal</span>
-              <strong className="text-plum">{formatPrice(subtotal)}</strong>
+              <span>Pricing</span>
+              <strong className="text-plum">Confirmed on WhatsApp</strong>
             </div>
             <p className="text-xs text-[#746b70]">
-              Delivery fee will be confirmed with Tina Bakers on WhatsApp.
+              Tina confirms the current price, availability and delivery fee before you pay.
             </p>
             <Link
               className="button button-plum mt-4 w-full"
