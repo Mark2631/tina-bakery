@@ -132,7 +132,7 @@ export function CheckoutFlow() {
           `• ${item.name} (${item.sizeLabel}${item.flavor && item.flavor !== "House recipe" ? ", " + item.flavor : ""})${item.message ? ` — \"${item.message}\"` : ""} × ${item.quantity}`,
       ),
       "",
-      "Illustrative website estimate: " + (subtotal > 0 ? formatPrice(subtotal) : "Custom quote required") + " (demo only; final price confirmed by Tina)",
+      "Illustrative website estimate for priced items: " + (subtotal > 0 ? formatPrice(subtotal) : "Custom quote required") + (hasQuoteItems ? " (custom quote items excluded)" : "") + " (demo only; final price confirmed by Tina)",
       "Delivery fee: To be confirmed",
       "",
       "*Delivery*",
