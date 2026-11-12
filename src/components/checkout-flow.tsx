@@ -12,7 +12,7 @@ import { CartLine } from "@/components/cart-line";
 import { DatePicker } from "@/components/date-picker";
 import { Button } from "@/components/ui";
 import { useCart } from "@/components/cart-context";
-import { formatPrice, products } from "@/data/products";
+import { products } from "@/data/products";
 import {
   formatDateForDisplay,
   getEarliestAvailableDate,
@@ -53,7 +53,7 @@ const initial: CheckoutData = {
 };
 
 export function CheckoutFlow() {
-  const { items, subtotal, hydrated } = useCart();
+  const { items, hydrated } = useCart();
   const [step, setStep] = useState(1);
   const [data, setData] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -127,10 +127,10 @@ export function CheckoutFlow() {
       "*Items*",
       ...items.map(
         (item) =>
-          `• ${item.name} (${item.sizeLabel}, ${item.flavor})${item.message ? ` — \"${item.message}\"` : ""} × ${item.quantity} = ${formatPrice(item.totalPrice)}`,
+          `• ${item.name} (${item.sizeLabel}${item.flavor && item.flavor !== "House recipe" ? ", " + item.flavor : ""})${item.message ? ` — \"${item.message}\"` : ""} × ${item.quantity}`,
       ),
       "",
-      `Subtotal: ${formatPrice(subtotal)}`,
+      "Price: To be confirmed with Tina before payment",
       "Delivery fee: To be confirmed",
       "",
       "*Delivery*",
@@ -148,10 +148,10 @@ export function CheckoutFlow() {
       `WhatsApp: ${data.phone}`,
       "",
       `Notes: ${data.instructions.trim() || "None"}`,
-      "— tinabakers.co.ke",
+      "— Tina Bakers, Meru",
     ];
     return lines.join("\n");
-  }, [data, items, subtotal]);
+  }, [data, items]);
 
   function handleDateChange(value: string) {
     if (isSundayDate(value)) {
@@ -542,15 +542,15 @@ export function CheckoutFlow() {
                         {item.quantity}
                       </span>
                       <strong className="whitespace-nowrap text-plum">
-                        {formatPrice(item.totalPrice)}
+                        {"Price on WhatsApp"}
                       </strong>
                     </div>
                   ))}
                 </div>
                 <div className="summary-box mt-5">
                   <div className="summary-row">
-                    <span>Subtotal</span>
-                    <strong>{formatPrice(subtotal)}</strong>
+                    <span>Product price</span>
+                    <strong>Confirmed on WhatsApp</strong>
                   </div>
                   <div className="summary-row">
                     <span>Delivery fee</span>
@@ -577,8 +577,7 @@ export function CheckoutFlow() {
                   Send order via WhatsApp
                 </Button>
                 <p className="mt-3 text-center text-xs text-[#746b70]">
-                  We&apos;ll confirm within 2 hours during business hours
-                  (Mon–Sat 8am–6:30pm).
+                  Tina will reply to confirm availability, the final price and the next step.
                 </p>
                 <button
                   type="button"
@@ -594,7 +593,7 @@ export function CheckoutFlow() {
             <div className="summary-box">
               <h2 className="font-display text-xl text-plum">Order summary</h2>
               <p className="mt-1 text-xs text-[#746b70]">
-                Delivery confirmed on order
+                Delivery fee confirmed on WhatsApp
               </p>
               <div className="mt-4">
                 {items.map((item) => (
@@ -609,8 +608,8 @@ export function CheckoutFlow() {
                 ))}
               </div>
               <div className="summary-row summary-total mt-3">
-                <span>Subtotal</span>
-                <strong>{formatPrice(subtotal)}</strong>
+                <span>Product price</span>
+                <strong>Confirmed on WhatsApp</strong>
               </div>
               <p className="mt-3 text-xs text-[#746b70]">
                 No payment is collected on this website.
