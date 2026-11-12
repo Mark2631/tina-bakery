@@ -411,9 +411,9 @@ export function CheckoutFlow() {
                       aria-invalid={Boolean(errors.time)}
                     >
                       <option value="">Choose a time</option>
-                      <option>Morning (8am–12pm)</option>
-                      <option>Afternoon (12pm–5pm)</option>
-                      <option>Before 6:30pm</option>
+                      <option>Morning</option>
+                      <option>Afternoon</option>
+                      <option>Evening</option>
                     </select>
                   </Field>
                   <Field
@@ -602,7 +602,7 @@ export function CheckoutFlow() {
                       {item.name} × {item.quantity}
                     </span>
                     <span className="whitespace-nowrap">
-                      {formatPrice(item.totalPrice)}
+                      {"Price confirmed on WhatsApp"}
                     </span>
                   </div>
                 ))}
