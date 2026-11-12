@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { ProductGrid } from "@/components/products";
 import { LocationBlock } from "@/components/location-block";
-import { InstagramStrip } from "@/components/instagram-strip";
 import { products } from "@/data/products";
 
 const occasions = [
