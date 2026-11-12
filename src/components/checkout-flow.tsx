@@ -12,7 +12,7 @@ import { CartLine } from "@/components/cart-line";
 import { DatePicker } from "@/components/date-picker";
 import { Button } from "@/components/ui";
 import { useCart } from "@/components/cart-context";
-import { products } from "@/data/products";
+import { formatPrice, products } from "@/data/products";
 import {
   formatDateForDisplay,
   getEarliestAvailableDate,
@@ -57,6 +57,8 @@ export function CheckoutFlow() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const subtotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
+  const hasQuoteItems = items.some((item) => products.find((product) => product.id === item.productId)?.basePrice === null);
   const isCustom = items.some(
     (item) =>
       item.size === "tiered" ||
@@ -130,7 +132,7 @@ export function CheckoutFlow() {
           `• ${item.name} (${item.sizeLabel}${item.flavor && item.flavor !== "House recipe" ? ", " + item.flavor : ""})${item.message ? ` — \"${item.message}\"` : ""} × ${item.quantity}`,
       ),
       "",
-      "Price: To be confirmed with Tina before payment",
+      "Illustrative website estimate: " + (subtotal > 0 ? formatPrice(subtotal) : "Custom quote required") + " (demo only; final price confirmed by Tina)",
       "Delivery fee: To be confirmed",
       "",
       "*Delivery*",
@@ -542,15 +544,15 @@ export function CheckoutFlow() {
                         {item.quantity}
                       </span>
                       <strong className="whitespace-nowrap text-plum">
-                        {"Price on WhatsApp"}
+                        {item.totalPrice > 0 ? formatPrice(item.totalPrice) : "Quote required"}
                       </strong>
                     </div>
                   ))}
                 </div>
                 <div className="summary-box mt-5">
                   <div className="summary-row">
-                    <span>Product price</span>
-                    <strong>Confirmed on WhatsApp</strong>
+                    <span>Demo estimate</span>
+                    <strong>{formatPrice(subtotal)}</strong>
                   </div>
                   <div className="summary-row">
                     <span>Delivery fee</span>
@@ -560,7 +562,7 @@ export function CheckoutFlow() {
                 <div className="mt-5 border border-[#bd7b52]/30 bg-[#f8ebdc] p-4 text-sm text-[#684c42]">
                    Sending your request will open WhatsApp. Your order is{" "}
                   <strong>NOT confirmed</strong> until Tina Bakers replies to
-                  agree availability and send M-Pesa payment details.
+                  agree availability and the actual price. Sample prices shown here are for demonstration only.
                 </div>
                 <Button
                   variant="gold"
@@ -602,17 +604,17 @@ export function CheckoutFlow() {
                       {item.name} × {item.quantity}
                     </span>
                     <span className="whitespace-nowrap">
-                      {"Price confirmed on WhatsApp"}
+                      {item.totalPrice > 0 ? formatPrice(item.totalPrice) : "Quote required"}
                     </span>
                   </div>
                 ))}
               </div>
               <div className="summary-row summary-total mt-3">
-                <span>Product price</span>
-                <strong>Confirmed on WhatsApp</strong>
+                <span>Demo estimate</span>
+                <strong>{formatPrice(subtotal)}</strong>
               </div>
               <p className="mt-3 text-xs text-[#746b70]">
-                No payment is collected on this website.
+                Website prices are illustrative demo estimates. No payment is collected on this website.
               </p>
             </div>
           </aside>
