@@ -21,6 +21,7 @@ export function ProductOptions({ product }: { product: Product }) {
   const [instructions, setInstructions] = useState("");
   const { addItem, setDrawerOpen } = useCart();
   const selectedSize = sizes.find((option) => option.id === size);
+  const selectedPrice = product.basePrice === null ? 0 : product.basePrice + (isCake ? selectedSize?.addition ?? 0 : 0);
 
   function handleAdd() {
     const sizeLabel = isCake && selectedSize
@@ -44,8 +45,8 @@ export function ProductOptions({ product }: { product: Product }) {
       message: message.trim(),
       specialInstructions: instructions.trim(),
       quantity: 1,
-      unitPrice: 0,
-      totalPrice: 0,
+      unitPrice: selectedPrice,
+      totalPrice: selectedPrice,
     });
     setDrawerOpen(true);
   }
@@ -84,7 +85,7 @@ export function ProductOptions({ product }: { product: Product }) {
           <p id="size-choice-label" className="text-sm font-bold text-plum">
             Choose your cake size
           </p>
-          <p className="mt-1 text-xs text-[#746b70]">Portion estimates help you choose. Tina confirms the final size and price.</p>
+          <p className="mt-1 text-xs text-[#746b70]">Portion guide and demo estimate. Tina confirms the final size and actual price.</p>
           <div className="option-group mt-3" role="group" aria-labelledby="size-choice-label">
             {sizes.map((option) => (
               <button
@@ -145,13 +146,13 @@ export function ProductOptions({ product }: { product: Product }) {
       </div>
 
       <div className="price-confirmation">
-        <strong>Price confirmed before payment</strong>
-        <span>We’ll confirm the current price, availability and delivery fee with you on WhatsApp.</span>
+        <strong>Illustrative demo price</strong>
+        <span>This sample estimate is for presentation only. Tina confirms the actual price, availability and delivery fee.</span>
       </div>
 
       <Button type="button" className="w-full" onClick={handleAdd}>
         <ShoppingBag size={17} />
-        Add to order
+        Add to order · {product.basePrice === null ? "Quote" : `KSh ${selectedPrice.toLocaleString("en-KE")}`}
       </Button>
 
       <p className="text-center text-xs text-[#746b70]">
