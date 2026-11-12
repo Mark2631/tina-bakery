@@ -2,7 +2,7 @@ import { formatPrice } from "@/data/products";
 import { cn } from "@/lib/utils";
 
 type PriceDisplayProps = {
-  amount: number;
+  amount: number | null;
   prefix?: string;
   className?: string;
   detail?: string;
@@ -14,6 +14,14 @@ export function PriceDisplay({
   className,
   detail,
 }: PriceDisplayProps) {
+  if (amount === null) {
+    return (
+      <p className={cn("price-display price-on-request", className)}>
+        Price confirmed on WhatsApp
+      </p>
+    );
+  }
+
   return (
     <p
       className={cn("price-display", className)}
