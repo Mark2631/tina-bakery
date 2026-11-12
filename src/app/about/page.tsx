@@ -23,8 +23,8 @@ const values = [
     Icon: HandHeart,
   },
   {
-    title: "Fresh",
-    copy: "We bake to order, using fresh ingredients and giving every detail the time it deserves.",
+    title: "Made to order",
+    copy: "Share your occasion, preferred finish and date so the details can be discussed before an order is confirmed.",
     Icon: Leaf,
   },
   {
@@ -34,9 +34,9 @@ const values = [
   },
 ];
 const process = [
-  "Ingredients sourced fresh",
-  "Baked to order",
-  "Delivered with care",
+  "Choose your style",
+  "Confirm the details",
+  "Arrange collection or delivery",
 ];
 
 export default function AboutPage() {
@@ -131,10 +131,10 @@ export default function AboutPage() {
                 <h3>{item}</h3>
                 <p className="max-w-xs text-sm text-[#746b70]">
                   {index === 0
-                    ? "We plan each bake around the ingredients and details that make it yours."
+                    ? "Choose a cake style, flavour and occasion from the menu."
                     : index === 1
-                      ? "Our team prepares your order fresh in the Tina Bakers kitchen."
-                      : "We arrange the details with you so your cake arrives ready for its moment."}
+                      ? "Discuss the requested date, finish and any personal details with the bakery."
+                      : "Confirm whether collection or delivery is available for your order."}
                 </p>
               </article>
             ))}
