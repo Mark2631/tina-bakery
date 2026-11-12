@@ -5,9 +5,10 @@ import { useCart } from "@/components/cart-context";
 import { Sheet } from "@/components/ui";
 import { CartLine } from "@/components/cart-line";
 import { CakeSlice, ShoppingBag } from "lucide-react";
+import { formatPrice } from "@/data/products";
 
 export function CartDrawer() {
-  const { items, drawerOpen, setDrawerOpen, hydrated } = useCart();
+  const { items, drawerOpen, setDrawerOpen, hydrated, subtotal } = useCart();
   return (
     <Sheet
       open={drawerOpen}
@@ -32,11 +33,11 @@ export function CartDrawer() {
           </div>
           <div className="border-t border-plum/15 pt-4">
             <div className="summary-row text-sm">
-              <span>Pricing</span>
-              <strong className="text-plum">Confirmed on WhatsApp</strong>
+              <span>Demo estimate</span>
+              <strong className="text-plum">{formatPrice(subtotal)}</strong>
             </div>
             <p className="text-xs text-[#746b70]">
-              Tina confirms the current price, availability and delivery fee before you pay.
+              Demo estimate only. Tina confirms the actual price, availability and delivery fee before payment.
             </p>
             <Link
               className="button button-plum mt-4 w-full"
