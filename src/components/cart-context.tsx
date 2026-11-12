@@ -39,34 +39,18 @@ const initialState: CartState = { items: [] };
 function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
     case "ADD_ITEM": {
-      const addition = Math.max(
-        1,
-        Math.min(99, Math.floor(action.item.quantity)),
-      );
+      const addition = Math.max(1, Math.min(99, Math.floor(action.item.quantity)));
       const existing = state.items.find((item) => item.id === action.item.id);
       if (existing) {
+        const quantity = Math.min(99, existing.quantity + addition);
         return {
           items: state.items.map((item) =>
-            item.id === action.item.id
-              ? {
-                  ...item,
-                  quantity: Math.min(99, item.quantity + addition),
-                  totalPrice:
-                    Math.min(99, item.quantity + addition) * item.unitPrice,
-                }
-              : item,
+            item.id === action.item.id ? { ...item, quantity, totalPrice: 0 } : item,
           ),
         };
       }
       return {
-        items: [
-          ...state.items,
-          {
-            ...action.item,
-            quantity: addition,
-            totalPrice: action.item.unitPrice * addition,
-          },
-        ],
+        items: [...state.items, { ...action.item, quantity: addition, unitPrice: 0, totalPrice: 0 }],
       };
     }
     case "REMOVE_ITEM":
@@ -77,9 +61,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         : 1;
       return {
         items: state.items.map((item) =>
-          item.id === action.id
-            ? { ...item, quantity, totalPrice: item.unitPrice * quantity }
-            : item,
+          item.id === action.id ? { ...item, quantity, unitPrice: 0, totalPrice: 0 } : item,
         ),
       };
     }
@@ -103,50 +85,42 @@ const CartContext = createContext<{
   clearCart: () => void;
 } | null>(null);
 
-const STORAGE_KEY = "tina-bakers-cart-v1";
+const STORAGE_KEY = "tina-bakers-cart-v2";
 
 function restoreCartItem(value: unknown): CartItem | null {
   if (!value || typeof value !== "object") return null;
   const item = value as Partial<CartItem>;
   const product = products.find((entry) => entry.id === item.productId);
-  const size = sizes.find(
-    (entry) => entry.id === item.size && entry.id !== "tiered",
-  );
-  const validFlavor = flavors.includes(item.flavor as (typeof flavors)[number]);
-  if (
-    !product ||
-    !size ||
-    !validFlavor ||
-    typeof item.id !== "string" ||
-    !Number.isFinite(item.quantity) ||
-    !Number.isFinite(item.unitPrice)
-  )
-    return null;
-  const quantity = Math.max(
-    1,
-    Math.min(99, Math.floor(item.quantity as number)),
-  );
-  const unitPrice = product.basePrice + size.addition;
-  const message =
-    typeof item.message === "string" ? item.message.slice(0, 80) : "";
-  const specialInstructions =
-    typeof item.specialInstructions === "string"
-      ? item.specialInstructions.slice(0, 500)
-      : "";
+  if (!product || typeof item.id !== "string" || !Number.isFinite(item.quantity)) return null;
+
+  const size = product.optionType === "cake"
+    ? sizes.find((entry) => entry.id === item.size)
+    : undefined;
+  if (product.optionType === "cake" && !size) return null;
+
+  const availableFlavors = product.flavorOptions ?? (product.optionType === "cake" ? [...flavors] : []);
+  const flavor = typeof item.flavor === "string" && (availableFlavors.includes(item.flavor) || item.flavor === "House recipe")
+    ? item.flavor
+    : availableFlavors[0] ?? "House recipe";
+
+  const quantity = Math.max(1, Math.min(99, Math.floor(item.quantity as number)));
+  const message = typeof item.message === "string" ? item.message.slice(0, 80) : "";
+  const specialInstructions = typeof item.specialInstructions === "string" ? item.specialInstructions.slice(0, 500) : "";
+  const sizeId = size?.id ?? "standard";
+  const sizeLabel = size ? size.label + " (" + size.detail + ")" : product.packLabel ?? "Standard order";
+
   return {
-    id: [product.id, size.id, item.flavor, message, specialInstructions].join(
-      "_",
-    ),
+    id: [product.id, sizeId, flavor, message, specialInstructions].join("_"),
     productId: product.id,
     name: product.name,
-    size: size.id,
-    sizeLabel: `${size.label} (${size.detail})`,
-    flavor: item.flavor as string,
+    size: sizeId,
+    sizeLabel,
+    flavor,
     message,
     specialInstructions,
     quantity,
-    unitPrice,
-    totalPrice: unitPrice * quantity,
+    unitPrice: 0,
+    totalPrice: 0,
   };
 }
 
@@ -163,15 +137,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const stored = window.localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed: unknown = JSON.parse(stored);
-        if (
-          parsed &&
-          typeof parsed === "object" &&
-          "items" in parsed &&
-          Array.isArray(parsed.items)
-        ) {
-          parsed.items
-            .map(restoreCartItem)
-            .filter((item): item is CartItem => item !== null)
+        if (parsed && typeof parsed === "object" && "items" in parsed && Array.isArray(parsed.items)) {
+          parsed.items.map(restoreCartItem).filter((item): item is CartItem => item !== null)
             .forEach((item) => dispatch({ type: "ADD_ITEM", item }));
         }
       }
@@ -195,25 +162,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [hydrated, state]);
 
-  const addItem = useCallback(
-    (item: CartItem) => dispatch({ type: "ADD_ITEM", item }),
-    [],
-  );
-  const removeItem = useCallback(
-    (id: string) => dispatch({ type: "REMOVE_ITEM", id }),
-    [],
-  );
-  const updateQuantity = useCallback(
-    (id: string, quantity: number) =>
-      dispatch({ type: "UPDATE_QUANTITY", id, quantity }),
-    [],
-  );
+  const addItem = useCallback((item: CartItem) => dispatch({ type: "ADD_ITEM", item }), []);
+  const removeItem = useCallback((id: string) => dispatch({ type: "REMOVE_ITEM", id }), []);
+  const updateQuantity = useCallback((id: string, quantity: number) => dispatch({ type: "UPDATE_QUANTITY", id, quantity }), []);
   const clearCart = useCallback(() => dispatch({ type: "CLEAR_CART" }), []);
   const value = useMemo(
     () => ({
       items: state.items,
       count: state.items.reduce((sum, item) => sum + item.quantity, 0),
-      subtotal: state.items.reduce((sum, item) => sum + item.totalPrice, 0),
+      subtotal: 0,
       hydrated,
       drawerOpen,
       setDrawerOpen,
@@ -222,15 +179,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       updateQuantity,
       clearCart,
     }),
-    [
-      state.items,
-      hydrated,
-      drawerOpen,
-      addItem,
-      removeItem,
-      updateQuantity,
-      clearCart,
-    ],
+    [state.items, hydrated, drawerOpen, addItem, removeItem, updateQuantity, clearCart],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
