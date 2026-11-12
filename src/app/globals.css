@@ -1396,3 +1396,15 @@ body:has(.date-picker[data-open="true"]) .floating-wa {
     flex-direction: column;
   }
 }
+
+@media (max-width: 640px) and (max-height: 500px) {
+  .floating-wa {
+    bottom: calc(1.1rem + env(safe-area-inset-bottom));
+  }
+  .hero-inner > div:first-child {
+    max-width: calc(100% - 4.5rem);
+  }
+  .hero h1 {
+    font-size: clamp(2.65rem, 11vw, 3.5rem);
+  }
+}
