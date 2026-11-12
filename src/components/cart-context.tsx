@@ -45,12 +45,12 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         const quantity = Math.min(99, existing.quantity + addition);
         return {
           items: state.items.map((item) =>
-            item.id === action.item.id ? { ...item, quantity, totalPrice: 0 } : item,
+            item.id === action.item.id ? { ...item, quantity, totalPrice: item.unitPrice * quantity } : item,
           ),
         };
       }
       return {
-        items: [...state.items, { ...action.item, quantity: addition, unitPrice: 0, totalPrice: 0 }],
+        items: [...state.items, { ...action.item, quantity: addition, totalPrice: action.item.unitPrice * addition }],
       };
     }
     case "REMOVE_ITEM":
@@ -61,7 +61,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         : 1;
       return {
         items: state.items.map((item) =>
-          item.id === action.id ? { ...item, quantity, unitPrice: 0, totalPrice: 0 } : item,
+          item.id === action.id ? { ...item, quantity, totalPrice: item.unitPrice * quantity } : item,
         ),
       };
     }
@@ -120,8 +120,8 @@ function restoreCartItem(value: unknown): CartItem | null {
     message,
     specialInstructions,
     quantity,
-    unitPrice: 0,
-    totalPrice: 0,
+    unitPrice: product.basePrice === null ? 0 : product.basePrice + (size?.addition ?? 0),
+    totalPrice: (product.basePrice === null ? 0 : product.basePrice + (size?.addition ?? 0)) * quantity,
   };
 }
 
@@ -173,7 +173,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     () => ({
       items: state.items,
       count: state.items.reduce((sum, item) => sum + item.quantity, 0),
-      subtotal: 0,
+      subtotal: state.items.reduce((sum, item) => sum + item.totalPrice, 0),
       hydrated,
       drawerOpen,
       setDrawerOpen,
