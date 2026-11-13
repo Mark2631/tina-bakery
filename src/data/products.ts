@@ -304,4 +304,4 @@ export const getProductBySlug = (slug: string) =>
   products.find((product) => product.slug === slug);
 
 export const formatPrice = (amount: number) =>
-  \`KSh \${amount.toLocaleString("en-KE")}\`;
+  `KSh ${amount.toLocaleString("en-KE")}`;
