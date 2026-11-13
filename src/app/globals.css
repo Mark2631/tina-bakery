@@ -1388,3 +1388,199 @@ body {
   .home-featured-v3 .product-art-image,
   .home-gallery-tile img { transition: none !important; }
 }
+
+
+/* --------------------------------------------------------------------------
+   Tina Bakers supplied brand assets + snack bouquet catalogue feature.
+   Transparent black-and-red logo sits on its own warm blush panel so the
+   original artwork stays intact while the storefront palette remains stable.
+   -------------------------------------------------------------------------- */
+.brand-mark {
+  width: 158px;
+  height: 82px;
+  flex: 0 0 158px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 8px;
+  overflow: hidden;
+  border-radius: 0 0 15px 15px;
+  background: #fff0ee;
+}
+.brand-logo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.mobile-drawer .brand-mark {
+  width: 142px;
+  height: 78px;
+  flex-basis: 142px;
+  border-radius: 10px;
+}
+.footer-wordmark { display: inline-flex; align-items: center; }
+.footer-logo-panel {
+  width: 205px;
+  min-height: 116px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 13px;
+  border-radius: 5px 32px 5px 5px;
+  background: #fff0ee;
+}
+.footer-logo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* One extra occasion tile makes the second product type easy to discover. */
+.home-occasion-v3 .occasion-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.home-occasion-v3 .occasion-card-image {
+  aspect-ratio: 4 / 4.55;
+}
+.home-occasion-v3 .occasion-card-copy strong {
+  font-size: clamp(1.08rem, 1.45vw, 1.42rem);
+}
+.home-occasion-v3 .occasion-card-copy small {
+  font-size: .63rem;
+}
+
+/* Real Tina Bakers snack bouquet, photographed by the bakery owner. */
+.home-snack-v3 {
+  overflow: hidden;
+  background: #f7d9d7;
+}
+.home-snack-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
+  align-items: center;
+  gap: clamp(40px, 7vw, 100px);
+  padding-block: clamp(58px, 7vw, 88px);
+}
+.home-snack-photo {
+  position: relative;
+  min-height: 440px;
+  overflow: hidden;
+  border-radius: 5px 88px 5px 5px;
+  background: #e9d7e9;
+}
+.home-snack-photo img { object-fit: cover; object-position: center; }
+.home-snack-tag {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 9px 12px;
+  background: #fffaf2;
+  color: #a51f2a;
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+}
+.home-snack-copy .eyebrow { color: #a51f2a; }
+.home-snack-copy .section-heading {
+  max-width: 640px;
+  color: #34221e;
+  font-size: clamp(2.9rem, 4.8vw, 4.8rem);
+}
+.home-snack-copy .section-copy {
+  max-width: 550px;
+  margin-top: 19px;
+  color: #6e4b4b;
+}
+.home-snack-price {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 22px;
+}
+.home-snack-price strong {
+  color: #a51f2a;
+  font-size: 1.24rem;
+  font-weight: 800;
+}
+.home-snack-price span {
+  color: #816160;
+  font-size: .63rem;
+  line-height: 1.5;
+}
+.home-snack-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-top: 23px;
+}
+.home-snack-actions .button { margin-top: 0; }
+.home-snack-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #7b2f40;
+  font-size: .73rem;
+  font-weight: 800;
+}
+.home-snack-link:hover { color: #d9272e; }
+
+/* Keep image frames attractive even while a remote image is loading. */
+.hero-v3-photo-main,
+.hero-v3-photo-inset,
+.home-occasion-v3 .occasion-card-image,
+.home-featured-v3 .product-art,
+.home-story-v3 .story-photo,
+.home-custom-v3 .custom-cta-image,
+.home-gallery-tile,
+.gallery-main {
+  background-color: #f3dcd7;
+}
+.product-art-image,
+.gallery-photo { background: #f3dcd7; }
+
+/* Tablet and compact laptop layouts. */
+@media (max-width: 1120px) {
+  .home-occasion-v3 .occasion-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .home-occasion-v3 .occasion-card-image { aspect-ratio: 4 / 4.7; }
+  .brand-mark { width: 146px; flex-basis: 146px; }
+}
+@media (max-width: 930px) {
+  .brand-mark {
+    width: 145px;
+    height: 74px;
+    flex-basis: 145px;
+  }
+  .home-snack-grid { gap: 34px; }
+  .home-snack-photo { min-height: 380px; }
+}
+@media (max-width: 760px) {
+  .brand-mark {
+    width: 122px;
+    height: 68px;
+    flex-basis: 122px;
+    padding: 4px 6px;
+  }
+  .footer-logo-panel { width: 180px; min-height: 102px; }
+  .home-occasion-v3 .occasion-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-snack-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-block: 54px;
+  }
+  .home-snack-photo {
+    min-height: 350px;
+    border-top-right-radius: 70px;
+  }
+  .home-snack-copy .section-heading { font-size: clamp(2.75rem, 9.8vw, 3.65rem); }
+  .home-snack-actions { align-items: flex-start; flex-direction: column; gap: 14px; }
+}
+@media (max-width: 390px) {
+  .brand-mark { width: 110px; flex-basis: 110px; }
+  .home-occasion-v3 .occasion-card-copy strong { font-size: 1rem; }
+  .home-snack-photo { min-height: 300px; }
+}
