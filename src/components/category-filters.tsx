@@ -22,7 +22,7 @@ export function CategoryFilters({ selected = "all" }: { selected?: string }) {
     : "all";
 
   function navigate(slug: string) {
-    router.push(slug === "all" ? "/shop" : \`/collections/\${slug}\`);
+    router.push(slug === "all" ? "/shop" : `/collections/${slug}`);
   }
 
   return (
@@ -38,7 +38,7 @@ export function CategoryFilters({ selected = "all" }: { selected?: string }) {
             href={
               category.slug === "all"
                 ? "/shop"
-                : \`/collections/\${category.slug}\`
+                : `/collections/${category.slug}`
             }
             aria-current={active === category.slug ? "page" : undefined}
           >
