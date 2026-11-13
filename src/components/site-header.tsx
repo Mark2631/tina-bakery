@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowUpRight, Menu, ShoppingBag, X } from "lucide-react";
@@ -7,7 +8,8 @@ import { useState } from "react";
 import { useCart } from "@/components/cart-context";
 
 const navLinks = [
-  { href: "/shop", label: "The menu" },
+  { href: "/shop", label: "Cakes & bakes" },
+  { href: "/collections/snacks", label: "Gifts & snacks" },
   { href: "/collections/birthday", label: "Celebrations" },
   { href: "/custom-cakes", label: "Custom cakes" },
   { href: "/about", label: "Our story" },
@@ -16,12 +18,20 @@ const navLinks = [
 
 function BrandMark({ onClick }: { onClick?: () => void }) {
   return (
-    <Link className="brand-mark" href="/" aria-label="Tina Bakers home" onClick={onClick}>
-      <span className="brand-emblem" aria-hidden="true">t.</span>
-      <span className="brand-type">
-        <span className="brand-name">Tina</span>
-        <span className="brand-subtitle">B A K E R S</span>
-      </span>
+    <Link
+      className="brand-mark"
+      href="/"
+      aria-label="Tina Bakers home"
+      onClick={onClick}
+    >
+      <Image
+        src="/images/tina-bakers-logo.webp"
+        alt="Tina Bakers"
+        width={520}
+        height={296}
+        priority
+        className="brand-logo-image"
+      />
     </Link>
   );
 }
@@ -30,7 +40,7 @@ export function AnnouncementBar() {
   return (
     <div className="announcement">
       <span className="announcement-dot" />
-      <span>Fresh ideas, made to order in Meru</span>
+      <span>Fresh ideas, cakes and gifts in Meru</span>
       <span className="announcement-divider">—</span>
       <span>Let’s make something worth celebrating</span>
     </div>
@@ -61,11 +71,13 @@ export function MobileNavDrawer({
           <nav aria-label="Mobile navigation">
             {navLinks.map((link, index) => (
               <Link key={link.href} href={link.href} onClick={() => onOpenChange(false)}>
-                <span>0{index + 1}</span>{link.label}<ArrowUpRight size={17} />
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                {link.label}
+                <ArrowUpRight size={17} />
               </Link>
             ))}
             <Link href="/cart" onClick={() => onOpenChange(false)}>
-              <span>0{navLinks.length + 1}</span>
+              <span>{String(navLinks.length + 1).padStart(2, "0")}</span>
               Your order {count ? "(" + count + ")" : ""}
               <ShoppingBag size={17} />
             </Link>
@@ -100,10 +112,14 @@ export function SiteHeader() {
           </button>
           <BrandMark />
           <nav className="desktop-nav" aria-label="Main navigation">
-            {navLinks.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href}>{link.label}</Link>
+            ))}
           </nav>
           <div className="header-actions">
-            <Link href="/shop" className="header-order-link">Order a cake <ArrowUpRight size={15} /></Link>
+            <Link href="/shop" className="header-order-link">
+              Order a cake <ArrowUpRight size={15} />
+            </Link>
             <button
               type="button"
               className="cart-trigger"
