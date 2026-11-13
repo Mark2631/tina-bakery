@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1050" role="img" aria-labelledby="title desc">
+  <title id="title">Tina Bakers cake image placeholder</title>
+  <desc id="desc">A simple illustrated celebration cake with berry and coral details on a warm blush background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff3ed"/>
+      <stop offset="1" stop-color="#f5d4d2"/>
+    </linearGradient>
+    <linearGradient id="icing" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#fbe5df"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1050" fill="url(#bg)"/>
+  <circle cx="720" cy="210" r="100" fill="#f4bdad" opacity=".34"/>
+  <circle cx="180" cy="840" r="140" fill="#e99b89" opacity=".18"/>
+  <path d="M170 768c70-34 490-34 560 0v42c-95 46-465 46-560 0z" fill="#7b2f40" opacity=".12"/>
+  <ellipse cx="450" cy="790" rx="295" ry="46" fill="#e8b3a5"/>
+  <path d="M210 450h480v292c0 46-43 76-93 76H303c-50 0-93-30-93-76z" fill="url(#icing)" stroke="#d99183" stroke-width="9"/>
+  <path d="M210 475c55 22 70-35 119-7s72 30 121-3 75 24 121 2 71-11 119 8" fill="none" stroke="#efaa9c" stroke-width="16" stroke-linecap="round"/>
+  <path d="M265 450c0-72 83-132 185-132s185 60 185 132z" fill="#fffdf8" stroke="#d99183" stroke-width="9"/>
+  <path d="M280 450c25-48 75-76 170-76s145 28 170 76" fill="none" stroke="#e9a193" stroke-width="11" stroke-linecap="round"/>
+  <g fill="#e56e4e">
+    <circle cx="352" cy="382" r="17"/>
+    <circle cx="450" cy="362" r="20"/>
+    <circle cx="548" cy="382" r="17"/>
+  </g>
+  <g fill="#7b2f40">
+    <path d="M352 356c-23-25-46-5-28 14 10 11 28 19 28 19s20-10 29-22c15-23-12-37-29-11z"/>
+    <path d="M450 334c-23-25-46-5-28 14 10 11 28 19 28 19s20-10 29-22c15-23-12-37-29-11z"/>
+    <path d="M548 356c-23-25-46-5-28 14 10 11 28 19 28 19s20-10 29-22c15-23-12-37-29-11z"/>
+  </g>
+  <path d="M450 302c-4-43 10-64 27-83" fill="none" stroke="#7b2f40" stroke-width="10" stroke-linecap="round"/>
+  <path d="M440 230c-30-24-13-52 15-36 30-26 50 6 18 27" fill="#e56e4e"/>
+  <g fill="#7b2f40" opacity=".78">
+    <path d="M120 300l15 34 35 15-35 15-15 34-15-34-35-15 35-15z"/>
+    <path d="M760 560l12 26 27 12-27 12-12 26-12-26-27-12 27-12z"/>
+  </g>
+</svg>
