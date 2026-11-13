@@ -11,6 +11,7 @@ const categories = [
   { slug: "graduation", label: "Graduation" },
   { slug: "cupcakes", label: "Cupcakes" },
   { slug: "pastries", label: "Pastries" },
+  { slug: "snacks", label: "Gifts & snacks" },
   { slug: "corporate", label: "Corporate" },
 ];
 
@@ -21,11 +22,11 @@ export function CategoryFilters({ selected = "all" }: { selected?: string }) {
     : "all";
 
   function navigate(slug: string) {
-    router.push(slug === "all" ? "/shop" : `/collections/${slug}`);
+    router.push(slug === "all" ? "/shop" : \`/collections/\${slug}\`);
   }
 
   return (
-    <div className="mb-8" role="group" aria-label="Filter cakes by category">
+    <div className="mb-8" role="group" aria-label="Filter products by category">
       <nav
         className="filter-row category-filter-links"
         aria-label="Product categories"
@@ -37,7 +38,7 @@ export function CategoryFilters({ selected = "all" }: { selected?: string }) {
             href={
               category.slug === "all"
                 ? "/shop"
-                : `/collections/${category.slug}`
+                : \`/collections/\${category.slug}\`
             }
             aria-current={active === category.slug ? "page" : undefined}
           >
@@ -46,7 +47,7 @@ export function CategoryFilters({ selected = "all" }: { selected?: string }) {
         ))}
       </nav>
       <label className="category-filter-select">
-        <span className="sr-only">Filter cakes by category</span>
+        <span className="sr-only">Filter products by category</span>
         <Select
           value={active}
           onChange={(event) => navigate(event.target.value)}
