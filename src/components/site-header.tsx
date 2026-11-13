@@ -36,17 +36,6 @@ function BrandMark({ onClick }: { onClick?: () => void }) {
   );
 }
 
-export function AnnouncementBar() {
-  return (
-    <div className="announcement">
-      <span className="announcement-dot" />
-      <span>Fresh ideas, cakes and gifts in Meru</span>
-      <span className="announcement-divider">—</span>
-      <span>Let’s make something worth celebrating</span>
-    </div>
-  );
-}
-
 export function MobileNavDrawer({
   open,
   onOpenChange,
@@ -98,7 +87,6 @@ export function SiteHeader() {
 
   return (
     <>
-      <AnnouncementBar />
       <header className="site-header">
         <div className="header-inner">
           <button
