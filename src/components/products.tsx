@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Product } from "@/data/products";
 import { PriceDisplay } from "@/components/price-display";
+import { SafeImage } from "@/components/safe-image";
 
 export function ProductArtwork({
   product,
@@ -13,7 +13,7 @@ export function ProductArtwork({
 }) {
   return (
     <div className={"product-art " + className} data-tone={product.accent}>
-      <Image
+      <SafeImage
         src={product.imageUrl}
         alt={product.name + " styling reference"}
         fill
