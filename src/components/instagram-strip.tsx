@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { SafeImage } from "@/components/safe-image";
 
 const gallery = [
   {
@@ -45,7 +45,7 @@ export function InstagramStrip() {
         <div className="home-gallery-grid">
           {gallery.map((item, index) => (
             <Link className="home-gallery-tile" href="/custom-cakes" key={item.src}>
-              <Image
+              <SafeImage
                 src={item.src}
                 alt={item.alt}
                 fill
