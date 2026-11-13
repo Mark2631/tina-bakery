@@ -4,7 +4,8 @@ export type CategorySlug =
   | "graduation"
   | "cupcakes"
   | "pastries"
-  | "corporate";
+  | "corporate"
+  | "snacks";
 
 export type ProductOptionType = "cake" | "pack" | "quote";
 
@@ -26,7 +27,9 @@ export type Product = {
   accent: "rose" | "cocoa" | "honey" | "berry" | "sage" | "cream";
 };
 
-// DEMO-ONLY estimates, not Tina Bakers' verified menu prices. Confirm all figures with the owner before launch.
+// DEMO-ONLY catalogue and KSh estimates. Product availability, exact contents,
+// final designs and all prices must be confirmed with Tina Bakers before launch.
+// Third-party photos are visual references, not Tina Bakers' own work.
 export const products: Product[] = [
   {
     id: "classic-birthday",
@@ -35,7 +38,7 @@ export const products: Product[] = [
     categories: ["birthday"],
     categoryLabel: "Birthday",
     basePrice: 2400,
-    description: "A soft celebration sponge with a smooth buttercream finish, personalised for the day you have in mind.",
+    description: "A timeless celebration cake with a smooth buttercream finish. Choose a size, flavour and message for your occasion.",
     servings: "6–8",
     imageUrl: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=1200&q=85",
     optionType: "cake",
@@ -93,7 +96,7 @@ export const products: Product[] = [
     basePrice: 3500,
     description: "A made-to-order centrepiece for the hard work, the big day and everyone who helped you get there.",
     servings: "10–12",
-    imageUrl: "https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=1200&q=85",
+    imageUrl: "https://www.perthcakeandcookieco.com.au/cdn/shop/files/fully-loaded-perth-cake-and-cookie-co-2.jpg?v=1767697944",
     optionType: "cake",
     accent: "sage",
   },
@@ -104,9 +107,9 @@ export const products: Product[] = [
     categories: ["wedding"],
     categoryLabel: "Wedding",
     basePrice: null,
-    description: "A statement centrepiece planned around your guest count, colours and celebration.",
+    description: "An elegant tiered cake reference for a wedding or formal celebration. Final design and price depend on size, finish and decoration.",
     servings: "Custom",
-    imageUrl: "https://images.unsplash.com/photo-1542007920-992d2c424d09?auto=format&fit=crop&w=1200&q=85",
+    imageUrl: "https://static.wixstatic.com/media/d4b64d_7be096ba4ed24e28978f2c6c1c8f1948~mv2.png/v1/fill/w_980%2Ch_1185%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/d4b64d_7be096ba4ed24e28978f2c6c1c8f1948~mv2.png",
     optionType: "quote",
     custom: true,
     accent: "cream",
@@ -191,12 +194,79 @@ export const products: Product[] = [
     categories: ["corporate"],
     categoryLabel: "Corporate",
     basePrice: null,
-    description: "A cake for a team milestone, launch or client gathering, designed around your brand.",
+    description: "A cake concept for a team milestone, launch or client gathering, designed around a brand or event theme.",
     servings: "Custom",
     imageUrl: "https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=1200&q=85",
     optionType: "quote",
     custom: true,
     accent: "cream",
+  },
+  {
+    id: "chocolate-galore",
+    slug: "chocolate-galore-celebration-cake",
+    name: "Chocolate Galore Celebration Cake",
+    categories: ["birthday"],
+    categoryLabel: "Birthday",
+    basePrice: 3400,
+    description: "A bold chocolate drip cake with a generous chocolate finish. A style reference for anyone who wants a centrepiece.",
+    servings: "8–10",
+    imageUrl: "https://www.gardnerscakes.co.uk/cdn/shop/products/deeperchocolate_800x800_1cf1a31f-ca8f-45fa-8f71-1507116e8d87.jpg?v=1580749354&width=1100",
+    optionType: "cake",
+    accent: "cocoa",
+  },
+  {
+    id: "loaded-chocolate",
+    slug: "loaded-chocolate-cake",
+    name: "Loaded Chocolate & Cupcake Cake",
+    categories: ["birthday", "cupcakes"],
+    categoryLabel: "Birthday · Cupcakes",
+    basePrice: 3900,
+    description: "A celebration cake with chocolate decoration and matching cupcakes. Final arrangement and quantity are confirmed with the bakery.",
+    servings: "10–12",
+    imageUrl: "https://www.perthcakeandcookieco.com.au/cdn/shop/files/fully-loaded-perth-cake-and-cookie-co-2.jpg?v=1767697944",
+    optionType: "cake",
+    accent: "berry",
+  },
+  {
+    id: "strawberry-cream",
+    slug: "strawberry-cream-cake",
+    name: "Strawberry & Cream Cake",
+    categories: ["birthday", "wedding"],
+    categoryLabel: "Birthday · Wedding",
+    basePrice: 3200,
+    description: "A light-looking celebration cake with fresh-berry styling. Use this as inspiration for a custom flavour and finish.",
+    servings: "8–10",
+    imageUrl: "https://cms.jibecdn.com/prod/thecheesecakefactory-bakery/assets/LP-SKU-A1-BG-IMG-MOBILE-en-us-1709054716219.png",
+    optionType: "cake",
+    accent: "rose",
+  },
+  {
+    id: "dessert-treat-box",
+    slug: "dessert-treat-box",
+    name: "Brownie & Cupcake Treat Box",
+    categories: ["snacks", "cupcakes"],
+    categoryLabel: "Gifts & snacks",
+    basePrice: 1600,
+    description: "A gift-ready assortment inspired by brownies and cupcakes. Exact contents and quantities should be confirmed before ordering.",
+    servings: "One mixed box",
+    imageUrl: "https://b.zmtcdn.com/data/pictures/0/20631430/d574fc702f459c484b8f3d3db570c005.jpg",
+    optionType: "pack",
+    packLabel: "One mixed box",
+    accent: "honey",
+  },
+  {
+    id: "snack-bouquet",
+    slug: "snack-bouquet",
+    name: "Snack Bouquet",
+    categories: ["snacks"],
+    categoryLabel: "Gifts & snacks",
+    basePrice: 1800,
+    description: "A gift bouquet made with individually wrapped sweets and snack bars, arranged in lilac wrapping with a pink ribbon. A playful alternative to flowers. Snack selection and packaging can vary, so confirm the final contents before ordering.",
+    servings: "One bouquet",
+    imageUrl: "/images/snack-bouquet.webp",
+    optionType: "pack",
+    packLabel: "One snack bouquet",
+    accent: "rose",
   },
 ];
 
@@ -207,11 +277,12 @@ export const categories: {
   headline: string;
 }[] = [
   { slug: "birthday", label: "Birthday", description: "A cake made for candle wishes, shared laughter and that first slice.", headline: "Make a wish. We’ll bake the cake." },
-  { slug: "wedding", label: "Wedding", description: "Thoughtful, handmade cakes for the day you’ll remember together.", headline: "A little sweetness for your forever." },
+  { slug: "wedding", label: "Wedding", description: "Thoughtful cake ideas for a day you’ll remember together.", headline: "A little sweetness for your forever." },
   { slug: "graduation", label: "Graduation", description: "Celebrate every late night, every step and the people who cheered you on.", headline: "For the milestone you worked for." },
-  { slug: "cupcakes", label: "Cupcakes", description: "Small-batch cupcakes, baked fresh and ready to pass around.", headline: "Little cakes. Big reasons to celebrate." },
+  { slug: "cupcakes", label: "Cupcakes", description: "Cupcake ideas for celebrations, sharing and everyday treats.", headline: "Little cakes. Big reasons to celebrate." },
   { slug: "pastries", label: "Pastries", description: "Comforting bakes for tea time, thoughtful gifting and everyday moments.", headline: "Something lovely for the table." },
-  { slug: "corporate", label: "Corporate", description: "Made-to-order cakes and cupcakes for teams, launches and client moments.", headline: "A thoughtful centrepiece for your team." },
+  { slug: "corporate", label: "Corporate", description: "Cake ideas for teams, launches and client moments.", headline: "A thoughtful centrepiece for your team." },
+  { slug: "snacks", label: "Gifts & snacks", description: "Snack bouquets and treat boxes for thoughtful gifting and celebrations.", headline: "Send a little joy, wrapped as a gift." },
 ];
 
 export const flavors = [
@@ -233,4 +304,4 @@ export const getProductBySlug = (slug: string) =>
   products.find((product) => product.slug === slug);
 
 export const formatPrice = (amount: number) =>
-  `KSh ${amount.toLocaleString("en-KE")}`;
+  \`KSh \${amount.toLocaleString("en-KE")}\`;
