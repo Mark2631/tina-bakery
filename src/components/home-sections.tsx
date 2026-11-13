@@ -86,7 +86,7 @@ export function HeroSection() {
             />
           </div>
           <div className="hero-v3-photo-inset">
-            <Image
+            <SafeImage
               src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=650&q=88"
               alt="Cupcake inspiration"
               fill
@@ -185,7 +185,7 @@ export function StoryTeaser() {
     <section className="section-space story-section home-story-v3">
       <div className="section-wrap story-grid">
         <div className="story-photo">
-          <Image
+          <SafeImage
             src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=1300&q=88"
             alt="Layered celebration cake inspiration"
             fill
@@ -222,7 +222,7 @@ export function CustomCakeCta() {
     <section className="custom-cta home-custom-v3">
       <div className="custom-cta-inner">
         <div className="custom-cta-image">
-          <Image
+          <SafeImage
             src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=1100&q=88"
             alt="Decorated cake inspiration for a custom order"
             fill
