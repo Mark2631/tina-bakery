@@ -15,8 +15,8 @@ export default function HomePage() {
     <>
       <HeroSection />
       <HomeTrustNote />
-      <FeaturedProducts />
       <OccasionGrid />
+      <FeaturedProducts />
       <StoryTeaser />
       <CustomCakeCta />
       <HowToOrder />
