@@ -1,11 +1,11 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/safe-image";
 import type { Product } from "@/data/products";
 
 export function ProductGallery({ product }: { product: Product }) {
   return (
     <div className="product-gallery" role="group" aria-label={product.name + " reference photograph"}>
       <div className="gallery-main">
-        <Image
+        <SafeImage
           src={product.imageUrl}
           alt={product.name + " style reference"}
           fill
