@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, CakeSlice, Heart, Sparkles } from "lucide-react";
 import { ProductGrid } from "@/components/products";
 import { LocationBlock } from "@/components/location-block";
-import { products } from "@/data/products";
+import { formatPrice, products } from "@/data/products";
+import { SafeImage } from "@/components/safe-image";
 
 const occasions = [
   {
@@ -33,6 +33,13 @@ const occasions = [
     href: "/collections/cupcakes",
     image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1100&q=88",
     tone: "lavender",
+  },
+  {
+    title: "Snack bouquets",
+    note: "A gift with a little surprise.",
+    href: "/collections/snacks",
+    image: "/images/snack-bouquet.webp",
+    tone: "blush",
   },
 ];
 
@@ -69,7 +76,7 @@ export function HeroSection() {
         </div>
         <div className="hero-v3-visual">
           <div className="hero-v3-photo-main">
-            <Image
+            <SafeImage
               src="https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=1500&q=90"
               alt="Celebration cake inspiration"
               fill
@@ -135,7 +142,7 @@ export function OccasionGrid() {
           {occasions.map((item, index) => (
             <Link className={"occasion-card occasion-card--" + item.tone} href={item.href} key={item.title}>
               <div className="occasion-card-image">
-                <Image src={item.image} alt={item.title + " inspiration"} fill unoptimized sizes="(max-width: 700px) 46vw, 24vw" />
+                <SafeImage src={item.image} alt={item.title + " inspiration"} fill unoptimized sizes="(max-width: 700px) 46vw, 24vw" />
                 <span className="occasion-card-number">0{index + 1}</span>
                 <span className="occasion-card-open"><ArrowUpRight size={20} /></span>
               </div>
@@ -235,6 +242,49 @@ export function CustomCakeCta() {
           <Link className="button home-custom-button" href="/custom-cakes">
             Dream up your cake <ArrowRight size={17} />
           </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function SnackBouquetSpotlight() {
+  const snack = products.find((product) => product.slug === "snack-bouquet");
+  if (!snack) return null;
+
+  return (
+    <section className="home-snack-v3">
+      <div className="section-wrap home-snack-grid">
+        <div className="home-snack-photo">
+          <SafeImage
+            src={snack.imageUrl}
+            alt="Tina Bakers snack bouquet made with wrapped snack bars and sweets"
+            fill
+            unoptimized
+            sizes="(max-width: 760px) 100vw, 48vw"
+          />
+          <span className="home-snack-tag">A GIFT WITH A TWIST</span>
+        </div>
+        <div className="home-snack-copy">
+          <p className="eyebrow">Not every gift needs a cake</p>
+          <h2 className="section-heading">Send a bouquet they can actually snack on.</h2>
+          <p className="section-copy">
+            Tina Bakers also offers snack bouquets: individually wrapped sweets
+            and snack bars arranged like flowers, finished with gift wrapping
+            and ribbon. A fun option for birthdays, thank-yous and little surprises.
+          </p>
+          <div className="home-snack-price">
+            <strong>{snack.basePrice === null ? "Ask for a quote" : formatPrice(snack.basePrice)}</strong>
+            <span>Illustrative demo estimate · confirm the exact snack selection and price</span>
+          </div>
+          <div className="home-snack-actions">
+            <Link className="button home-custom-button" href={"/shop/" + snack.slug}>
+              View snack bouquet <ArrowRight size={17} />
+            </Link>
+            <Link className="home-snack-link" href="/collections/snacks">
+              Browse gifts & snacks <ArrowUpRight size={16} />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
