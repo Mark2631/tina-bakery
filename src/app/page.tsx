@@ -6,6 +6,7 @@ import {
   HomeTrustNote,
   HowToOrder,
   OccasionGrid,
+  SnackBouquetSpotlight,
   StoryTeaser,
 } from "@/components/home-sections";
 import { InstagramStrip } from "@/components/instagram-strip";
@@ -17,6 +18,7 @@ export default function HomePage() {
       <HomeTrustNote />
       <OccasionGrid />
       <FeaturedProducts />
+      <SnackBouquetSpotlight />
       <StoryTeaser />
       <CustomCakeCta />
       <HowToOrder />
