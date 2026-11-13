@@ -5,6 +5,7 @@ import { useMemo, useState, type ReactNode } from "react";
 import {
   ChevronLeft,
   ChevronRight,
+  MapPin,
   MessageCircle,
   PackageCheck,
 } from "lucide-react";
@@ -35,6 +36,7 @@ type CheckoutData = {
   area: string;
   otherArea: string;
   address: string;
+  locationPin: string;
   instructions: string;
 };
 const initial: CheckoutData = {
@@ -49,6 +51,7 @@ const initial: CheckoutData = {
   area: "",
   otherArea: "",
   address: "",
+  locationPin: "",
   instructions: "",
 };
 
@@ -57,6 +60,7 @@ export function CheckoutFlow() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [locationMessage, setLocationMessage] = useState("");
   const subtotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
   const hasQuoteItems = items.some((item) => products.find((product) => product.id === item.productId)?.basePrice === null);
   const isCustom = items.some(
@@ -119,6 +123,25 @@ export function CheckoutFlow() {
     if (validate()) setStep((current) => Math.min(4, current + 1));
   }
 
+  function pinCurrentLocation() {
+    if (!navigator.geolocation) {
+      setLocationMessage("Location is not available in this browser. You can paste a Google Maps link into the delivery instructions.");
+      return;
+    }
+    setLocationMessage("Getting your location…");
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        const pin = `https://www.google.com/maps?q=${coords.latitude.toFixed(6)},${coords.longitude.toFixed(6)}`;
+        setValue("locationPin", pin);
+        setLocationMessage("Location pinned. The map link will be included in your WhatsApp order.");
+      },
+      () => {
+        setLocationMessage("Could not access your location. Allow location access in your browser, or share a map link in the instructions.");
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
+    );
+  }
+
   const whatsappMessage = useMemo(() => {
     if (!data.date || !data.time || !data.name || !data.phone) return "";
     const ref = `TB-${String(Date.now()).slice(-6)}`;
@@ -139,6 +162,7 @@ export function CheckoutFlow() {
       `Date: ${formatDateForDisplay(data.date)} · ${data.time}`,
       `Area: ${data.area === "Other" ? data.otherArea : data.area}`,
       `Address: ${data.address}`,
+      ...(data.locationPin ? [`Pinned map location: ${data.locationPin}`] : []),
       ...(data.isGift
         ? [
             `🎁 SURPRISE – for ${data.recipientName}, WhatsApp: ${data.recipientPhone}`,
@@ -153,7 +177,7 @@ export function CheckoutFlow() {
       "— Tina Bakers, Meru",
     ];
     return lines.join("\n");
-  }, [data, items]);
+  }, [data, items, subtotal, hasQuoteItems]);
 
   function handleDateChange(value: string) {
     if (isSundayDate(value)) {
@@ -472,6 +496,27 @@ export function CheckoutFlow() {
                       aria-invalid={Boolean(errors.address)}
                     />
                   </Field>
+                  <div className="span-two">
+                    <Button variant="outline" onClick={pinCurrentLocation}>
+                      <MapPin size={16} />
+                      {data.locationPin ? "Update pinned location" : "Pin my current location"}
+                    </Button>
+                    {locationMessage && (
+                      <p className="mt-2 text-xs text-[#746b70]" role="status">
+                        {locationMessage}
+                      </p>
+                    )}
+                    {data.locationPin && (
+                      <a
+                        className="mt-2 inline-block text-sm font-semibold text-plum underline underline-offset-4"
+                        href={data.locationPin}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        View pinned location
+                      </a>
+                    )}
+                  </div>
                   <Field
                     label="Special instructions (optional)"
                     id="delivery-instructions"
@@ -521,6 +566,7 @@ export function CheckoutFlow() {
                       data.time,
                       data.area === "Other" ? data.otherArea : data.area,
                       data.address,
+                      data.locationPin ? "Map pin: " + data.locationPin : "No map pin added",
                     ]}
                   />
                   {data.isGift && (
