@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowUpRight, Menu, ShoppingBag, X } from "lucide-react";
@@ -17,11 +18,14 @@ const navLinks = [
 function BrandMark({ onClick }: { onClick?: () => void }) {
   return (
     <Link className="brand-mark" href="/" aria-label="Tina Bakers home" onClick={onClick}>
-      <span className="brand-emblem" aria-hidden="true">t.</span>
-      <span className="brand-type">
-        <span className="brand-name">Tina</span>
-        <span className="brand-subtitle">B A K E R S</span>
-      </span>
+      <Image
+        src="/images/tina-bakers-logo.webp"
+        alt="Tina Bakers"
+        width={520}
+        height={296}
+        priority
+        className="brand-logo-image"
+      />
     </Link>
   );
 }

@@ -1,20 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { SiteShell } from "@/components/site-shell";
 import "./globals.css";
-
-const playfair = Cormorant_Garamond({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
-});
-const jakarta = DM_Sans({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-  display: "swap",
-});
 
 const siteUrl = "https://tina-bakery.vercel.app";
 
@@ -46,7 +32,7 @@ export const metadata: Metadata = {
   description:
     "Explore celebration cakes, cupcakes and thoughtful bakes from Tina Bakers in Meru, Kenya. Choose a design and confirm your order directly on WhatsApp.",
   applicationName: "Tina Bakers",
-  icons: { icon: "/tina-bakers-mark.svg" },
+  icons: { icon: [{ url: "/tina-bakers-mark.svg", type: "image/svg+xml" }] },
   openGraph: {
     title: "Tina Bakers | Cakes & bakes in Meru",
     description: "Beautiful cakes and bakes for the moments that matter.",
@@ -54,11 +40,13 @@ export const metadata: Metadata = {
     siteName: "Tina Bakers",
     locale: "en_KE",
     type: "website",
+    images: [{ url: "/images/tina-bakers-logo.webp", width: 520, height: 296, alt: "Tina Bakers logo" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Tina Bakers | Cakes & bakes in Meru",
     description: "Beautiful cakes and bakes for the moments that matter.",
+    images: ["/images/tina-bakers-logo.webp"],
   },
 };
 
@@ -74,7 +62,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${jakarta.variable}`}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

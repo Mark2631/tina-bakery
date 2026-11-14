@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Instagram, Facebook, MessageCircle } from "lucide-react";
 import { whatsappUrl } from "@/lib/utils";
@@ -8,9 +9,16 @@ export function SiteFooter() {
       <div className="section-wrap">
         <div className="footer-top">
           <div className="footer-brand-block">
-            <Link className="footer-wordmark" href="/">
-              <span className="footer-emblem">t.</span>
-              <span><strong>Tina</strong><small>BAKERS</small></span>
+            <Link className="footer-wordmark" href="/" aria-label="Tina Bakers home">
+              <span className="footer-logo-panel">
+                <Image
+                  src="/images/tina-bakers-logo.webp"
+                  alt="Tina Bakers"
+                  width={520}
+                  height={296}
+                  className="footer-logo-image"
+                />
+              </span>
             </Link>
             <p>Cakes, bakes and little reasons to celebrate. Made to order in Meru, Kenya.</p>
             <a className="footer-whatsapp" href={whatsappUrl()} target="_blank" rel="noreferrer">
