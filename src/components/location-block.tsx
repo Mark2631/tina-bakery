@@ -7,46 +7,36 @@ export function LocationBlock({ compact = false }: { compact?: boolean }) {
       <div className="overflow-hidden bg-[#eee7d3]">
         <iframe
           className="map-frame"
-          title="Map showing Tina Bakers in Meru, Kenya"
+          title="Search map for Tina Bakers in Meru, Kenya"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          src="https://maps.google.com/maps?q=0.0412883,37.6542907&z=15&output=embed"
+          src="https://maps.google.com/maps?q=Tina%20Bakers%2C%20Meru%2C%20Kenya&z=15&output=embed"
         />
       </div>
       <div className="flex flex-col justify-center py-2">
-        <p className="eyebrow">Come say hello</p>
+        <p className="eyebrow">Find Tina Bakers</p>
         <h2 className="section-heading mt-2 text-3xl sm:text-4xl">
-          A little Meru warmth, straight from our oven.
+          A local bakery in Meru.
         </h2>
         <p className="mt-3 flex items-start gap-2 text-sm text-[#746b70]">
-          <MapPin className="mt-1 shrink-0 text-caramel" size={18} /> Meru,
-          Kenya 60200
+          <MapPin className="mt-1 shrink-0 text-caramel" size={18} />
+          Meru, Kenya 60200
         </p>
-        <table className="hours-table mt-4 text-sm" aria-label="Opening hours">
-          <thead className="sr-only">
-            <tr>
-              <th scope="col">Day</th>
-              <th scope="col">Hours</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Monday – Saturday</td>
-              <td>8:00 AM – 6:30 PM</td>
-            </tr>
-            <tr>
-              <td>Sunday</td>
-              <td>Closed</td>
-            </tr>
-          </tbody>
-        </table>
-        <p className="mt-5 text-sm">Walk in or order ahead via WhatsApp:</p>
+        <div className="mt-5 border-l-2 border-gold bg-[#F2EBE2] px-4 py-3">
+          <strong className="text-sm text-plum">Planning a visit?</strong>
+          <p className="mt-1 text-sm text-[#746b70]">
+            Message the bakery first to confirm today’s opening hours, collection availability and the best way to find us.
+          </p>
+        </div>
+        <p className="mt-5 text-sm">For an order or directions, speak to the bakery directly:</p>
         <a
           href={whatsappUrl()}
           className="mt-2 inline-flex w-fit items-center gap-2 font-bold text-plum underline decoration-caramel underline-offset-4"
+          target="_blank"
+          rel="noreferrer"
         >
           <MessageCircle size={18} />
-          0790 187 080
+          WhatsApp · 0790 187 080
         </a>
       </div>
     </div>

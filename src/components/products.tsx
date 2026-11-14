@@ -1,55 +1,50 @@
+import Image from "next/image";
 import Link from "next/link";
-import { CakeSlice, ChevronRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Product } from "@/data/products";
-import { Badge } from "@/components/ui";
 import { PriceDisplay } from "@/components/price-display";
 
 export function ProductArtwork({
   product,
   className = "",
 }: {
-  product: Pick<Product, "name" | "accent">;
+  product: Pick<Product, "name" | "accent" | "imageUrl">;
   className?: string;
 }) {
   return (
-    <div
-      className={`product-art ${className}`}
-      data-tone={product.accent}
-      aria-label={`${product.name} illustration`}
-      role="img"
-    >
-      <span className="art-stamp">
-        <CakeSlice size={31} strokeWidth={1.25} />
-      </span>
-      <span className="product-art-note">
-        Illustrative artwork
-      </span>
+    <div className={"product-art " + className} data-tone={product.accent}>
+      <Image
+        src={product.imageUrl}
+        alt={product.name + " styling reference"}
+        fill
+        unoptimized
+        sizes="(max-width: 640px) 48vw, (max-width: 1024px) 45vw, 25vw"
+        className="product-art-image"
+      />
+      <span className="product-art-note">Style inspiration</span>
+      <span className="product-art-arrow" aria-hidden="true"><ArrowUpRight size={18} /></span>
     </div>
   );
 }
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <article className="product-card group">
-      <Link href={`/shop/${product.slug}`} aria-label={`View ${product.name}`}>
+    <article className="product-card">
+      <Link href={"/shop/" + product.slug} className="product-card-main" aria-label={"View " + product.name}>
         <ProductArtwork product={product} />
         <div className="product-card-copy">
-          <Badge>{product.categoryLabel}</Badge>
+          <div className="product-card-topline">
+            <span className="product-card-category">{product.categoryLabel}</span>
+            {product.custom ? <span className="product-card-custom">Made to order</span> : null}
+          </div>
           <h3 className="product-card-name">{product.name}</h3>
-          <PriceDisplay
-            amount={product.basePrice}
-            className="product-card-price"
-          />
+          <PriceDisplay amount={product.basePrice} className="product-card-price" />
         </div>
       </Link>
-      <div className="product-card-actions">
-        <Link
-          className="button button-outline w-full text-sm"
-          href={`/shop/${product.slug}`}
-        >
-          Choose options <ChevronRight size={16} />
-        </Link>
-      </div>
+      <Link className="product-card-action" href={"/shop/" + product.slug}>
+        {product.basePrice === null ? "Ask for a quote" : "Choose this cake"}
+        <ArrowUpRight size={16} />
+      </Link>
     </article>
   );
 }
@@ -61,18 +56,16 @@ export function ProductGrid({
   products: Product[];
   emptyMessage?: string;
 }) {
-  if (!products.length)
+  if (!products.length) {
     return (
-      <div className="border border-dashed border-plum/20 bg-white/60 p-10 text-center">
-        <Sparkles className="mx-auto text-caramel" />
-        <p className="mt-3 font-display text-xl text-plum">{emptyMessage}</p>
+      <div className="empty-collection">
+        <p>{emptyMessage}</p>
       </div>
     );
+  }
   return (
     <div className="product-grid">
-      {products.map((product) => (
-        <ProductCard product={product} key={product.id} />
-      ))}
+      {products.map((product) => <ProductCard product={product} key={product.id} />)}
     </div>
   );
 }

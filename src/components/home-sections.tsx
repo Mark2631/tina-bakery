@@ -1,78 +1,105 @@
+import Image from "next/image";
 import Link from "next/link";
-import {
-  BriefcaseBusiness,
-  CakeSlice,
-  ChevronRight,
-  Clock3,
-  GraduationCap,
-  Heart,
-  MapPin,
-  MessageCircle,
-  PartyPopper,
-  Sparkles,
-  Wheat,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight, CakeSlice, Heart, Sparkles } from "lucide-react";
 import { ProductGrid } from "@/components/products";
 import { LocationBlock } from "@/components/location-block";
-import { InstagramStrip } from "@/components/instagram-strip";
 import { products } from "@/data/products";
 
 const occasions = [
-  { title: "Birthdays", href: "/collections/birthday", Icon: CakeSlice },
-  { title: "Weddings", href: "/collections/wedding", Icon: Heart },
   {
-    title: "Graduations",
-    href: "/collections/graduation",
-    Icon: GraduationCap,
+    title: "Birthday cakes",
+    note: "Make a wish. Make it yours.",
+    href: "/collections/birthday",
+    image: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=900&q=85",
+    tone: "blush",
   },
-  { title: "Cupcakes", href: "/collections/cupcakes", Icon: PartyPopper },
   {
-    title: "Corporate",
-    href: "/collections/corporate",
-    Icon: BriefcaseBusiness,
+    title: "Wedding cakes",
+    note: "A centrepiece for your day.",
+    href: "/collections/wedding",
+    image: "https://images.unsplash.com/photo-1542007920-992d2c424d09?auto=format&fit=crop&w=900&q=85",
+    tone: "butter",
+  },
+  {
+    title: "Cupcakes",
+    note: "Little things, big joy.",
+    href: "/collections/cupcakes",
+    image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=900&q=85",
+    tone: "pistachio",
+  },
+  {
+    title: "Everyday bakes",
+    note: "Something sweet for later.",
+    href: "/collections/pastries",
+    image: "https://images.unsplash.com/photo-1508737804141-4c3b688e2546?auto=format&fit=crop&w=900&q=85",
+    tone: "lavender",
   },
 ];
 
 export function HeroSection() {
   return (
-    <section className="hero">
+    <section className="hero hero--editorial">
       <div className="hero-inner">
-        <div>
-          <p className="eyebrow">A little Meru warmth, freshly baked</p>
-          <h1>Baked with love, made for your special moments.</h1>
-          <p>
-            Celebrating Meru&apos;s families one cake at a time since we opened
-            our doors.
+        <div className="hero-copy">
+          <div className="hero-kicker">
+            <span className="hero-kicker-dot" />
+            THE LITTLE CAKE STUDIO IN MERU
+          </div>
+          <h1>Make room for <em>something sweet.</em></h1>
+          <p className="hero-intro">
+            Cakes with character, bakes worth sharing and thoughtful details for the moments you want to remember.
           </p>
           <div className="hero-actions">
-            <Link className="button button-plum" href="/shop">
-              Shop cakes <ChevronRight size={17} />
+            <Link className="button button-primary" href="/shop">
+              Explore the menu <ArrowRight size={17} />
             </Link>
-            <Link className="button button-outline" href="/custom-cakes">
-              Order a custom cake
+            <Link className="hero-text-link" href="/custom-cakes">
+              Dream up a custom cake <ArrowUpRight size={16} />
             </Link>
           </div>
-          <div className="mt-8 flex items-center gap-2 text-xs text-[#6c5f69]">
-            <MapPin size={15} className="text-caramel" />
-            Handmade in Meru, Kenya
+          <div className="hero-local">
+            <span className="hero-local-mark"><CakeSlice size={16} /></span>
+            Freshly imagined. Made to order in Meru, Kenya.
           </div>
         </div>
-        <div
-          className="hero-art"
-          aria-label="A simple illustration of a celebration cake"
-        >
-          <span className="hero-spark one" aria-hidden="true">
-            ✳
-          </span>
-          <span className="hero-spark two" aria-hidden="true">
-            ✳
-          </span>
-          <div className="hero-cake" aria-hidden="true">
-            <div className="cake-tier top" />
-            <div className="cake-tier" />
-            <div className="cake-plate" />
+        <div className="hero-visual">
+          <div className="hero-photo-wrap">
+            <Image
+              src="https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=1600&q=90"
+              alt="An elegant celebration cake with fresh decoration, shown as a bakery style reference"
+              fill
+              priority
+              unoptimized
+              sizes="(max-width: 760px) 100vw, 54vw"
+              className="hero-photo"
+            />
+          </div>
+          <div className="hero-photo-tag">
+            <span>THE ART OF</span>
+            <strong>celebrating</strong>
+          </div>
+          <div className="hero-photo-caption">
+            <span>01 / 04</span>
+            <span>Made for the good moments</span>
           </div>
         </div>
+      </div>
+      <div className="hero-bottom-note">
+        <span>GOOD THINGS ARE BAKED HERE</span>
+        <span>MERU · KENYA</span>
+      </div>
+    </section>
+  );
+}
+
+export function HomeTrustNote() {
+  return (
+    <section className="brand-promise-row" aria-label="Tina Bakers highlights">
+      <div className="section-wrap brand-promise-inner">
+        <span><Sparkles size={16} /> Made for your moment</span>
+        <span><CakeSlice size={16} /> Baked to order</span>
+        <span><Heart size={16} /> Finished with care</span>
+        <span>Easy WhatsApp ordering <ArrowUpRight size={15} /></span>
       </div>
     </section>
   );
@@ -80,27 +107,29 @@ export function HeroSection() {
 
 export function OccasionGrid() {
   return (
-    <section className="section-space">
+    <section className="section-space occasion-section">
       <div className="section-wrap">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div className="section-head-row">
           <div>
-            <p className="eyebrow">Made for the moments that matter</p>
-            <h2 className="section-heading mt-2">What are we celebrating?</h2>
+            <p className="eyebrow">A reason to get together</p>
+            <h2 className="section-heading">What are we celebrating?</h2>
           </div>
-          <Link
-            className="inline-flex items-center gap-1 text-sm font-bold text-plum"
-            href="/shop"
-          >
-            See all cakes <ChevronRight size={16} />
-          </Link>
+          <Link className="section-link" href="/shop">See everything <ArrowRight size={16} /></Link>
         </div>
         <div className="occasion-grid">
-          {occasions.map(({ title, href, Icon }) => (
-            <Link href={href} className="occasion-tile" key={title}>
-              <span className="occasion-icon">
-                <Icon size={21} strokeWidth={1.5} />
-              </span>
-              <span className="font-display text-xl">{title}</span>
+          {occasions.map((item, index) => (
+            <Link className={"occasion-card occasion-card--" + item.tone} href={item.href} key={item.title}>
+              <div className="occasion-card-image">
+                <Image src={item.image} alt={item.title + " styling reference"} fill unoptimized sizes="(max-width: 640px) 46vw, 24vw" />
+              </div>
+              <div className="occasion-card-copy">
+                <span>0{index + 1}</span>
+                <div>
+                  <strong>{item.title}</strong>
+                  <small>{item.note}</small>
+                </div>
+                <ArrowUpRight size={18} />
+              </div>
             </Link>
           ))}
         </div>
@@ -111,27 +140,18 @@ export function OccasionGrid() {
 
 export function FeaturedProducts() {
   return (
-    <section className="section-space bg-[#f1eadb]">
+    <section className="section-space featured-section">
       <div className="section-wrap">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div className="section-head-row">
           <div>
-            <p className="eyebrow">Baked in small batches</p>
-            <h2 className="section-heading mt-2">Fresh from our oven.</h2>
-            <p className="section-copy mt-3">
-              Every bake is made in our kitchen in Meru, with care from the
-              first whisk to the final finish.
-            </p>
+            <p className="eyebrow">A few good places to start</p>
+            <h2 className="section-heading">The ones everyone gathers around.</h2>
+            <p className="section-copy">A little menu of cakes and bakes to make choosing easy.</p>
           </div>
-          <Link
-            className="inline-flex items-center gap-1 text-sm font-bold text-plum"
-            href="/shop"
-          >
-            Browse the whole menu <ChevronRight size={16} />
-          </Link>
+          <Link className="section-link" href="/shop">Browse the full menu <ArrowRight size={16} /></Link>
         </div>
-        <ProductGrid
-          products={products.filter((product) => product.featured)}
-        />
+        <ProductGrid products={products.filter((product) => product.featured)} />
+        <p className="photo-disclaimer">Photography and menu prices are illustrative demo content, not verified Tina Bakers product images or a confirmed price list.</p>
       </div>
     </section>
   );
@@ -139,41 +159,28 @@ export function FeaturedProducts() {
 
 export function StoryTeaser() {
   return (
-    <section className="section-space">
+    <section className="section-space story-section">
       <div className="section-wrap story-grid">
-        <div
-          className="story-art"
-          role="img"
-          aria-label="Warm illustration representing the Tina Bakers kitchen"
-        >
-          <div className="story-placeholder">
-            <Wheat size={32} strokeWidth={1.2} />
-            <span className="font-display text-2xl">
-              Made by hand, right here in Meru.
-            </span>
-            <span className="text-xs text-[#746b70]">
-              A founder portrait can be added when Tina shares a photo.
-            </span>
-          </div>
+        <div className="story-photo">
+          <Image
+            src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=1200&q=85"
+            alt="Layered cake with elegant frosting details, shown as a visual reference"
+            fill
+            unoptimized
+            sizes="(max-width: 760px) 100vw, 48vw"
+          />
+          <span className="story-photo-note">A little care goes a long way.</span>
         </div>
-        <div>
-          <p className="eyebrow">A bakery with heart</p>
-          <h2 className="section-heading mt-2">
-            Every cake is made by hand, right here in Meru.
-          </h2>
-          <p className="section-copy mt-4">
-            We&apos;re Tina Bakers: a real local bakery making the cakes and
-            bakes that bring people together. From a family birthday to a
-            wedding table, each order is prepared in our own kitchen with fresh
-            ingredients and genuine care.
+        <div className="story-copy">
+          <p className="eyebrow">A local bakery with a personal touch</p>
+          <h2 className="section-heading">Not just dessert. Part of the memory.</h2>
+          <p className="section-copy">
+            From the first candle to the last slice, a good cake has a way of bringing people together. Tina Bakers makes cakes and bakes for birthdays, weddings, graduations and everyday celebrations in Meru.
           </p>
-          <p className="section-copy mt-3">
-            No middlemen, no ready-made cakes—just thoughtful baking for your
-            special moment.
+          <p className="section-copy">
+            Bring an idea, a colour palette or a favourite flavour. We’ll help you shape the details before your order is confirmed.
           </p>
-          <Link className="button button-outline mt-6" href="/about">
-            Meet Tina Bakers <ChevronRight size={16} />
-          </Link>
+          <Link className="button button-secondary" href="/about">A little about us <ArrowRight size={16} /></Link>
         </div>
       </div>
     </section>
@@ -184,15 +191,21 @@ export function CustomCakeCta() {
   return (
     <section className="custom-cta">
       <div className="custom-cta-inner">
-        <div>
-          <p className="eyebrow text-[#e4c77f]">A cake, just for your moment</p>
-          <h2>
-            Tell us what you&apos;re celebrating — we&apos;ll bake it for you.
-          </h2>
+        <div className="custom-cta-image">
+          <Image
+            src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=1000&q=85"
+            alt="Decorated cake used as a custom cake style reference"
+            fill
+            unoptimized
+            sizes="(max-width: 760px) 90vw, 38vw"
+          />
         </div>
-        <Link className="button button-gold shrink-0" href="/custom-cakes">
-          Plan a custom cake <ChevronRight size={17} />
-        </Link>
+        <div className="custom-cta-copy">
+          <p className="eyebrow">Have something in mind?</p>
+          <h2>Tell us the idea. We’ll bring the buttercream.</h2>
+          <p>Share your date, number of guests and inspiration. We’ll take it from there, one delicious detail at a time.</p>
+          <Link className="button button-dark" href="/custom-cakes">Plan a custom cake <ArrowRight size={17} /></Link>
+        </div>
       </div>
     </section>
   );
@@ -200,35 +213,23 @@ export function CustomCakeCta() {
 
 export function HowToOrder() {
   const steps = [
-    {
-      number: "01",
-      title: "Browse our cakes",
-      copy: "Find a favourite, or tell us what you have in mind.",
-    },
-    {
-      number: "02",
-      title: "WhatsApp your order",
-      copy: "Share the size, flavour, message, and date that work for you.",
-    },
-    {
-      number: "03",
-      title: "We bake & deliver",
-      copy: "Tina confirms the details, then our kitchen gets baking.",
-    },
+    { number: "01", title: "Pick your favourite", copy: "Choose a cake or bake and add the details that make it yours." },
+    { number: "02", title: "Send your request", copy: "Your order details open in WhatsApp, ready to send to Tina." },
+    { number: "03", title: "Confirm together", copy: "Tina checks availability and confirms the actual price and collection or delivery." },
   ];
   return (
-    <section className="section-space">
+    <section className="section-space order-section">
       <div className="section-wrap">
-        <p className="eyebrow">Simple as one, two, three</p>
-        <h2 className="section-heading mt-2">
-          A lovely cake is closer than you think.
-        </h2>
-        <div className="steps-grid mt-8">
+        <div className="order-intro">
+          <p className="eyebrow">Simple from the first click</p>
+          <h2 className="section-heading">Your next celebration, sorted.</h2>
+        </div>
+        <div className="steps-grid">
           {steps.map((step) => (
             <article className="step-card" key={step.number}>
               <span className="step-num">{step.number}</span>
               <h3>{step.title}</h3>
-              <p className="max-w-sm text-sm text-[#746b70]">{step.copy}</p>
+              <p>{step.copy}</p>
             </article>
           ))}
         </div>
@@ -239,31 +240,8 @@ export function HowToOrder() {
 
 export function HomeLocation() {
   return (
-    <section className="section-space bg-[#f1eadb]">
+    <section className="section-space location-section">
       <LocationBlock />
     </section>
-  );
-}
-
-export function HomeTrustNote() {
-  return (
-    <div className="section-wrap flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-y border-plum/10 py-5 text-xs font-semibold text-[#746b70]">
-      <span className="inline-flex items-center gap-2">
-        <Wheat size={16} className="text-caramel" />
-        Handmade in our Meru kitchen
-      </span>
-      <span className="inline-flex items-center gap-2">
-        <Clock3 size={16} className="text-caramel" />
-        Baked fresh to order
-      </span>
-      <span className="inline-flex items-center gap-2">
-        <MessageCircle size={16} className="text-caramel" />
-        Order by WhatsApp
-      </span>
-      <span className="inline-flex items-center gap-2">
-        <Sparkles size={16} className="text-caramel" />
-        Made for your moment
-      </span>
-    </div>
   );
 }

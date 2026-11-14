@@ -2,7 +2,7 @@ import { formatPrice } from "@/data/products";
 import { cn } from "@/lib/utils";
 
 type PriceDisplayProps = {
-  amount: number;
+  amount: number | null;
   prefix?: string;
   className?: string;
   detail?: string;
@@ -10,18 +10,27 @@ type PriceDisplayProps = {
 
 export function PriceDisplay({
   amount,
-  prefix = "From",
+  prefix = "Demo from",
   className,
   detail,
 }: PriceDisplayProps) {
+  if (amount === null) {
+    return (
+      <div className={cn("price-display price-on-request", className)}>
+        <strong>Custom quote</strong>
+        <small>Price on request</small>
+      </div>
+    );
+  }
+
   return (
-    <p
-      className={cn("price-display", className)}
-      aria-label={`${prefix ? `${prefix} ` : ""}${formatPrice(amount)}${detail ? `, ${detail}` : ""}`}
-    >
-      {prefix ? <span>{prefix} </span> : null}
-      {formatPrice(amount)}
-      {detail ? <span className="price-detail"> · {detail}</span> : null}
-    </p>
+    <div className={cn("price-display price-demo", className)}>
+      <p>
+        {prefix ? <span>{prefix} </span> : null}
+        <strong>{formatPrice(amount)}</strong>
+        {detail ? <span className="price-detail"> · {detail}</span> : null}
+      </p>
+      <small>Illustrative website price · confirm with Tina</small>
+    </div>
   );
 }

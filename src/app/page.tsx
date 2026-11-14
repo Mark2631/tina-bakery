@@ -14,11 +14,9 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <div className="py-5">
-        <HomeTrustNote />
-      </div>
-      <OccasionGrid />
+      <HomeTrustNote />
       <FeaturedProducts />
+      <OccasionGrid />
       <StoryTeaser />
       <CustomCakeCta />
       <HowToOrder />

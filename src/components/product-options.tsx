@@ -6,38 +6,27 @@ import type { Product } from "@/data/products";
 import { flavors, sizes } from "@/data/products";
 import { useCart } from "@/components/cart-context";
 import { Badge, Button, Input } from "@/components/ui";
-import { PriceDisplay } from "@/components/price-display";
 import { getLeadTimeMessage } from "@/lib/dates";
 import { whatsappUrl } from "@/lib/utils";
 
 export function ProductOptions({ product }: { product: Product }) {
-  const [size, setSize] = useState("");
-  const [flavor, setFlavor] = useState("");
+  const isCake = product.optionType === "cake";
+  const isQuote = product.optionType === "quote";
+  const flavorOptions = product.flavorOptions ?? (isCake ? [...flavors] : []);
+  const [size, setSize] = useState(isCake ? "6-inch" : "standard");
+  const [flavor, setFlavor] = useState(
+    flavorOptions[0] ?? (isCake ? "Vanilla" : "House recipe"),
+  );
   const [message, setMessage] = useState("");
   const [instructions, setInstructions] = useState("");
-  const [attempted, setAttempted] = useState(false);
   const { addItem, setDrawerOpen } = useCart();
   const selectedSize = sizes.find((option) => option.id === size);
-  const tiered = size === "tiered";
-  const price = product.basePrice + (selectedSize?.addition ?? 0);
-  const leadTime = product.custom || tiered;
+  const selectedPrice = product.basePrice === null ? 0 : product.basePrice + (isCake ? selectedSize?.addition ?? 0 : 0);
 
   function handleAdd() {
-    setAttempted(true);
-    if (!size || !flavor || tiered) {
-      if (!tiered)
-        requestAnimationFrame(() =>
-          document
-            .querySelector<HTMLElement>(
-              '[data-invalid="true"], [aria-invalid="true"]',
-            )
-            ?.scrollIntoView({ behavior: "smooth", block: "center" }),
-        );
-      return;
-    }
-    const sizeLabel = selectedSize
-      ? `${selectedSize.label} (${selectedSize.detail})`
-      : "";
+    const sizeLabel = isCake && selectedSize
+      ? selectedSize.label + " (" + selectedSize.detail + ")"
+      : product.packLabel ?? "Standard order";
     const id = [
       product.id,
       size,
@@ -45,6 +34,7 @@ export function ProductOptions({ product }: { product: Product }) {
       message.trim(),
       instructions.trim(),
     ].join("_");
+
     addItem({
       id,
       productId: product.id,
@@ -55,81 +45,85 @@ export function ProductOptions({ product }: { product: Product }) {
       message: message.trim(),
       specialInstructions: instructions.trim(),
       quantity: 1,
-      unitPrice: price,
-      totalPrice: price,
+      unitPrice: selectedPrice,
+      totalPrice: selectedPrice,
     });
     setDrawerOpen(true);
-    setAttempted(false);
+  }
+
+  if (isQuote) {
+    return (
+      <div className="mt-7 flex flex-col gap-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge>{product.categoryLabel}</Badge>
+          <Badge className="handmade-badge">Made to order</Badge>
+        </div>
+        <p className="text-sm leading-7 text-[#716a63]">
+          Share your date, guest count, preferred colours and an inspiration photo. Tina will confirm what is possible and provide a quote before you commit.
+        </p>
+        <a
+          className="button button-primary w-full"
+          href={whatsappUrl("Hi Tina Bakers, I would like a quote for a " + product.name + ". Please guide me on the details you need.")}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Request a WhatsApp quote <ArrowUpRight size={17} />
+        </a>
+      </div>
+    );
   }
 
   return (
     <div className="mt-7 flex flex-col gap-6">
       <div className="flex flex-wrap items-center gap-2">
         <Badge>{product.categoryLabel}</Badge>
-        <Badge className="handmade-badge">Handmade in Meru</Badge>
+        <Badge className="handmade-badge">Made in Meru</Badge>
       </div>
-      <div>
-        <p id="size-choice-label" className="text-sm font-bold text-plum">
-          Choose a size <span className="text-[#746b70]">(required)</span>
-        </p>
-        <p className="mt-1 text-xs text-[#746b70]">
-          Select the size that suits your table.
-        </p>
-        <div
-          className="option-group mt-3"
-          role="group"
-          aria-labelledby="size-choice-label"
-        >
-          {sizes.map((option) => (
-            <button
-              type="button"
-              key={option.id}
-              className="option-chip"
-              data-invalid={attempted && !size}
-              aria-pressed={size === option.id}
-              onClick={() => setSize(option.id)}
-            >
-              <strong>{option.label}</strong>
-              <small>{option.detail}</small>
-            </button>
-          ))}
-        </div>
-        {attempted && !size && (
-          <p className="error-message mt-2" role="alert">
-            Please choose a size.
+
+      {isCake && (
+        <div>
+          <p id="size-choice-label" className="text-sm font-bold text-plum">
+            Choose your cake size
           </p>
-        )}
-      </div>
-      <div>
-        <p id="flavour-choice-label" className="text-sm font-bold text-plum">
-          Choose a flavor <span className="text-[#746b70]">(required)</span>
-        </p>
-        <div
-          className="option-group mt-3"
-          role="group"
-          aria-labelledby="flavour-choice-label"
-        >
-          {flavors.map((item) => (
-            <button
-              type="button"
-              key={item}
-              className="option-chip"
-              data-invalid={attempted && !flavor}
-              aria-pressed={flavor === item}
-              onClick={() => setFlavor(item)}
-            >
-              {item}
-            </button>
-          ))}
+          <p className="mt-1 text-xs text-[#746b70]">Portion guide and demo estimate. Tina confirms the final size and actual price.</p>
+          <div className="option-group mt-3" role="group" aria-labelledby="size-choice-label">
+            {sizes.map((option) => (
+              <button
+                type="button"
+                key={option.id}
+                className="option-chip"
+                aria-pressed={size === option.id}
+                onClick={() => setSize(option.id)}
+              >
+                <strong>{option.label}</strong>
+                <small>{option.detail}</small>
+              </button>
+            ))}
+          </div>
         </div>
-        {attempted && !flavor && (
-          <p className="error-message mt-2" role="alert">
-            Please choose a flavor.
-          </p>
-        )}
-      </div>
+      )}
+
+      {flavorOptions.length > 1 && (
+        <div>
+          <p id="flavour-choice-label" className="text-sm font-bold text-plum">Choose a flavour</p>
+          <div className="option-group mt-3" role="group" aria-labelledby="flavour-choice-label">
+            {flavorOptions.map((item) => (
+              <button
+                type="button"
+                key={item}
+                className="option-chip"
+                aria-pressed={flavor === item}
+                onClick={() => setFlavor(item)}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="field-wrap">
-        <label htmlFor="cake-message">What should we write on the cake?</label>
+        <label htmlFor="cake-message">Message on the cake <span className="font-normal text-[#8a837c]">(optional)</span></label>
         <Input
           id="cake-message"
           maxLength={80}
@@ -137,64 +131,42 @@ export function ProductOptions({ product }: { product: Product }) {
           onChange={(event) => setMessage(event.target.value)}
           placeholder="e.g. Happy 10th Birthday, Nia!"
         />
-        <span className="text-xs text-[#746b70]">
-          Optional · up to 80 characters
-        </span>
       </div>
+
       <div className="field-wrap">
-        <label htmlFor="special-instructions">Special instructions</label>
+        <label htmlFor="special-instructions">Design notes <span className="font-normal text-[#8a837c]">(optional)</span></label>
         <textarea
           id="special-instructions"
           className="field-textarea"
           maxLength={500}
           value={instructions}
           onChange={(event) => setInstructions(event.target.value)}
-          placeholder="Tell us about colours, decorations, or anything we should know."
+          placeholder="Colours, decorations, allergies or anything Tina should know."
         />
       </div>
-      <p className="border-l-2 border-gold bg-[#f1eadb] px-4 py-3 text-sm text-[#625660]">
-        {getLeadTimeMessage(leadTime)}
-      </p>
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        {tiered ? (
-          <p className="price-display text-base">Contact for a quote</p>
-        ) : selectedSize ? (
-          <PriceDisplay
-            amount={price}
-            prefix=""
-            detail={`for ${selectedSize.label}`}
-            className="!text-base"
-          />
-        ) : (
-          <p className="text-sm text-[#746b70]">Choose a size to see the price.</p>
-        )}
+
+      <div className="price-confirmation">
+        <strong>Illustrative demo price</strong>
+        <span>This sample estimate is for presentation only. Tina confirms the actual price, availability and delivery fee.</span>
       </div>
-      {tiered ? (
-        <a
-          className="button button-gold w-full"
-          href={whatsappUrl("Hi, I'd like a tiered cake quote")}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Get a WhatsApp quote <ArrowUpRight size={17} />
-        </a>
-      ) : (
-        <Button type="button" className="w-full" onClick={handleAdd}>
-          <ShoppingBag size={17} />
-          Add to cart
-        </Button>
-      )}
+
+      <Button type="button" className="w-full" onClick={handleAdd}>
+        <ShoppingBag size={17} />
+        Add to order · {product.basePrice === null ? "Quote" : `KSh ${selectedPrice.toLocaleString("en-KE")}`}
+      </Button>
+
+      <p className="text-center text-xs text-[#746b70]">
+        {getLeadTimeMessage(Boolean(product.custom))}
+      </p>
       <p className="text-center text-xs text-[#746b70]">
         Prefer to talk it through?{" "}
         <a
           className="font-bold text-plum underline underline-offset-4"
-          href={whatsappUrl(
-            `Hi Tina Bakers, I have a question about the ${product.name}.`,
-          )}
+          href={whatsappUrl("Hi Tina Bakers, I have a question about the " + product.name + ".")}
           target="_blank"
           rel="noreferrer"
         >
-          Order directly via WhatsApp
+          Message Tina
         </a>
       </p>
     </div>

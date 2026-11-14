@@ -1,49 +1,70 @@
 # Tina Bakers
 
-A customer-facing storefront for Tina Bakers, an artisan bakery in Meru, Kenya. Built with Next.js 14 App Router, TypeScript, and Tailwind CSS.
+A customer-facing storefront and WhatsApp ordering experience for Tina Bakers in Meru, Kenya. Built with Next.js 14 App Router, React 18, TypeScript and Tailwind CSS.
 
-## Getting started
+## Run locally
 
-- Install dependencies with `npm install`.
-- Start the development server with `npm run dev`.
-- Run static checks with `npm run lint` and `npm run typecheck`.
+```bash
+npm install
+npm run dev
+```
 
-The storefront requires no environment variables. It does not use a database, authentication, or online payment processing in these phases.
+Static checks:
 
-## Customer journeys
+```bash
+npm run typecheck
+npm run lint
+npm run build
+```
 
-- Browse the catalogue or occasion collections, then configure a cake size, flavour, message, and instructions.
-- Add configured products to a persistent browser cart. Cart data is stored in `localStorage` on that device; clearing browser storage clears the cart.
-- Review the cart, enter Kenyan contact details and delivery preferences, then send the order through WhatsApp. The order is only confirmed after Tina Bakers replies.
-- Request a custom cake through the six-step inquiry form; its summary is sent to WhatsApp.
-- Contact the bakery through WhatsApp, Instagram, Facebook, the contact form, or the Meru map/location sections.
+The current storefront does not require environment variables. A database, online payment processing and admin order management are not yet implemented.
 
-No payment is collected on the site. Delivery fees and availability are confirmed directly with the bakery. The checkout does not send data to a server; it opens a prefilled WhatsApp message for the customer to review and send.
+## Customer journey
+
+- Browse the catalogue or an occasion collection.
+- Choose cake size and flavour, select a pack, or request a quote for a custom/tiered design.
+- Add a selection to the browser cart. Cart contents are stored in localStorage on that device and migrated from the previous cart key where possible.
+- Enter contact and delivery preferences in checkout.
+- Send the prepared order details to Tina Bakers on WhatsApp. The order is not confirmed until Tina replies and agrees availability, final pricing and delivery.
+
+The site does not charge customers or save submitted orders on a server. The WhatsApp handoff is the current order-submission path. Delivery fees are confirmed directly with the bakery.
 
 ## Routes
 
 - `/` — Homepage
 - `/shop` — Product catalogue
-- `/shop/[slug]` — Product details and required options
-- `/collections/[slug]` — Birthday, wedding, graduation, cupcakes, pastries, and corporate collections
+- `/shop/[slug]` — Product detail and options
+- `/collections/[slug]` — Birthday, wedding, graduation, cupcakes, pastries and corporate collections
 - `/custom-cakes` — Custom cake inquiry
 - `/about` — Bakery story and process
 - `/contact` — Contact information and WhatsApp handoff
-- `/cart` — Persistent cart
-- `/checkout` — Four-step order review and WhatsApp handoff
-- `/policies` — Delivery, lead time, cancellations, and allergy guidance
+- `/cart` — Browser cart
+- `/checkout` — Customer details, delivery and WhatsApp handoff
+- `/policies` — Delivery, lead time, cancellations and allergy guidance
 
-## Brand and content
+## Catalogue data and presentation assets
 
-- Plum `#4B2058`, gold `#C69B45`, ivory `#F9F6E9`, caramel `#D4954A`, and deep plum `#2D1235`.
-- Playfair Display headings and Plus Jakarta Sans body text.
-- Business details and product prices live in `src/data/products.ts` and the shared site components.
-- Product artwork is explicitly illustrative, not a photograph or claim about a finished Tina Bakers product. Replace it with approved bakery photography when supplied. The logo and founder portrait are also represented as text/editorial placeholders until real assets are available.
+- Product data and ordering options live in `src/data/products.ts`.
+- Exact product prices are intentionally unset until Tina supplies or approves a current price list. The storefront therefore asks customers to confirm current prices on WhatsApp rather than displaying unverified figures.
+- Current external food photographs are Unsplash styling references, not Tina Bakers product photography. They are labelled as references in the storefront and should be replaced with owner-approved images before a public marketing launch.
+- `public/tina-bakers-mark.svg` is an interim monogram mark created for the presentation refresh. It is not an extracted official Tina Bakers logo.
+- Current visual palette: terracotta `#A45140`, honey `#D8AB67`, warm cream `#FBF7F1`, dark charcoal `#2D2925`. Typography remains Playfair Display and Plus Jakarta Sans.
 
-## Business details
+## Business contact details
 
 - Tina Bakers · Meru, Kenya 60200
-- Monday–Saturday, 8:00 AM–6:30 PM · Sunday closed
 - WhatsApp / Phone: 0790 187 080 · International: +254 790 187 080
 - Instagram: [@tina.bakers](https://www.instagram.com/tina.bakers)
 - Facebook: [Angelo Tina Bakers](https://www.facebook.com/angelotinabakers)
+
+Public directory listings show inconsistent opening hours, so the website asks customers to confirm current opening hours before visiting.
+
+## Deployment notes
+
+- Project: Vercel `tina-bakery`
+- Current canonical host: `https://tina-bakery.vercel.app`
+- `src/app/sitemap.ts` generates the product, collection and core-page sitemap.
+- `src/app/robots.ts` publishes crawler rules.
+- Root metadata includes Bakery structured data with business contact details and social links.
+
+The default Vercel domains are protected by Vercel SSO in the current project settings. A public custom domain or explicit access-setting change is required before external customers can use the site without sign-in.

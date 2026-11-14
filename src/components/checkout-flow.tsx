@@ -53,10 +53,12 @@ const initial: CheckoutData = {
 };
 
 export function CheckoutFlow() {
-  const { items, subtotal, hydrated } = useCart();
+  const { items, hydrated } = useCart();
   const [step, setStep] = useState(1);
   const [data, setData] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const subtotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
+  const hasQuoteItems = items.some((item) => products.find((product) => product.id === item.productId)?.basePrice === null);
   const isCustom = items.some(
     (item) =>
       item.size === "tiered" ||
@@ -127,10 +129,10 @@ export function CheckoutFlow() {
       "*Items*",
       ...items.map(
         (item) =>
-          `• ${item.name} (${item.sizeLabel}, ${item.flavor})${item.message ? ` — \"${item.message}\"` : ""} × ${item.quantity} = ${formatPrice(item.totalPrice)}`,
+          `• ${item.name} (${item.sizeLabel}${item.flavor && item.flavor !== "House recipe" ? ", " + item.flavor : ""})${item.message ? ` — \"${item.message}\"` : ""} × ${item.quantity}`,
       ),
       "",
-      `Subtotal: ${formatPrice(subtotal)}`,
+      "Illustrative website estimate for priced items: " + (subtotal > 0 ? formatPrice(subtotal) : "Custom quote required") + (hasQuoteItems ? " (custom quote items excluded)" : "") + " (demo only; final price confirmed by Tina)",
       "Delivery fee: To be confirmed",
       "",
       "*Delivery*",
@@ -148,10 +150,10 @@ export function CheckoutFlow() {
       `WhatsApp: ${data.phone}`,
       "",
       `Notes: ${data.instructions.trim() || "None"}`,
-      "— tinabakers.co.ke",
+      "— Tina Bakers, Meru",
     ];
     return lines.join("\n");
-  }, [data, items, subtotal]);
+  }, [data, items]);
 
   function handleDateChange(value: string) {
     if (isSundayDate(value)) {
@@ -411,9 +413,9 @@ export function CheckoutFlow() {
                       aria-invalid={Boolean(errors.time)}
                     >
                       <option value="">Choose a time</option>
-                      <option>Morning (8am–12pm)</option>
-                      <option>Afternoon (12pm–5pm)</option>
-                      <option>Before 6:30pm</option>
+                      <option>Morning</option>
+                      <option>Afternoon</option>
+                      <option>Evening</option>
                     </select>
                   </Field>
                   <Field
@@ -542,14 +544,14 @@ export function CheckoutFlow() {
                         {item.quantity}
                       </span>
                       <strong className="whitespace-nowrap text-plum">
-                        {formatPrice(item.totalPrice)}
+                        {item.totalPrice > 0 ? formatPrice(item.totalPrice) : "Quote required"}
                       </strong>
                     </div>
                   ))}
                 </div>
                 <div className="summary-box mt-5">
                   <div className="summary-row">
-                    <span>Subtotal</span>
+                    <span>Demo estimate</span>
                     <strong>{formatPrice(subtotal)}</strong>
                   </div>
                   <div className="summary-row">
@@ -558,9 +560,9 @@ export function CheckoutFlow() {
                   </div>
                 </div>
                 <div className="mt-5 border border-[#bd7b52]/30 bg-[#f8ebdc] p-4 text-sm text-[#684c42]">
-                  ⚠️ Tapping &apos;Send&apos; will open WhatsApp. Your order is{" "}
+                   Sending your request will open WhatsApp. Your order is{" "}
                   <strong>NOT confirmed</strong> until Tina Bakers replies to
-                  agree availability and send M-Pesa payment details.
+                  agree availability and the actual price. Sample prices shown here are for demonstration only.
                 </div>
                 <Button
                   variant="gold"
@@ -577,8 +579,7 @@ export function CheckoutFlow() {
                   Send order via WhatsApp
                 </Button>
                 <p className="mt-3 text-center text-xs text-[#746b70]">
-                  We&apos;ll confirm within 2 hours during business hours
-                  (Mon–Sat 8am–6:30pm).
+                  Tina will reply to confirm availability, the final price and the next step.
                 </p>
                 <button
                   type="button"
@@ -594,7 +595,7 @@ export function CheckoutFlow() {
             <div className="summary-box">
               <h2 className="font-display text-xl text-plum">Order summary</h2>
               <p className="mt-1 text-xs text-[#746b70]">
-                Delivery confirmed on order
+                Delivery fee confirmed on WhatsApp
               </p>
               <div className="mt-4">
                 {items.map((item) => (
@@ -603,17 +604,17 @@ export function CheckoutFlow() {
                       {item.name} × {item.quantity}
                     </span>
                     <span className="whitespace-nowrap">
-                      {formatPrice(item.totalPrice)}
+                      {item.totalPrice > 0 ? formatPrice(item.totalPrice) : "Quote required"}
                     </span>
                   </div>
                 ))}
               </div>
               <div className="summary-row summary-total mt-3">
-                <span>Subtotal</span>
+                <span>Demo estimate</span>
                 <strong>{formatPrice(subtotal)}</strong>
               </div>
               <p className="mt-3 text-xs text-[#746b70]">
-                No payment is collected on this website.
+                Website prices are illustrative demo estimates. No payment is collected on this website.
               </p>
             </div>
           </aside>

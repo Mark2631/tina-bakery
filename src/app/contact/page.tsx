@@ -61,21 +61,12 @@ export default function ContactPage() {
                 </a>
               </div>
             </div>
-            <h2 className="mt-6 font-display text-2xl text-plum">
-              When to visit
-            </h2>
-            <table className="hours-table mt-2 text-sm">
-              <tbody>
-                <tr>
-                  <td>Monday – Saturday</td>
-                  <td>8:00 AM – 6:30 PM</td>
-                </tr>
-                <tr>
-                  <td>Sunday</td>
-                  <td>Closed</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="mt-6 border-l-2 border-gold bg-[#F2EBE2] px-4 py-4">
+              <h2 className="font-display text-xl text-plum">Before you visit</h2>
+              <p className="mt-2 text-sm text-[#746b70]">
+                Message us to confirm current opening hours, collection availability and delivery arrangements.
+              </p>
+            </div>
           </div>
           <div>
             <p className="eyebrow">Send a note</p>

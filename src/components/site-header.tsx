@@ -2,32 +2,25 @@
 
 import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Clock3, Menu, ShoppingBag, X } from "lucide-react";
+import { ArrowUpRight, Menu, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/components/cart-context";
 
 const navLinks = [
-  { href: "/shop", label: "Shop" },
-  { href: "/collections/birthday", label: "Occasions" },
-  { href: "/custom-cakes", label: "Custom Cakes" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/shop", label: "The menu" },
+  { href: "/collections/birthday", label: "Celebrations" },
+  { href: "/custom-cakes", label: "Custom cakes" },
+  { href: "/about", label: "Our story" },
+  { href: "/contact", label: "Find us" },
 ];
 
 function BrandMark({ onClick }: { onClick?: () => void }) {
   return (
-    <Link
-      className="brand-mark"
-      href="/"
-      aria-label="Tina Bakers home"
-      onClick={onClick}
-    >
-      <span className="brand-seal" aria-hidden="true">
-        T
-      </span>
-      <span>
-        <span className="brand-name">Tina Bakers</span>
-        <span className="brand-subtitle">Meru · Kenya</span>
+    <Link className="brand-mark" href="/" aria-label="Tina Bakers home" onClick={onClick}>
+      <span className="brand-emblem" aria-hidden="true">t.</span>
+      <span className="brand-type">
+        <span className="brand-name">Tina</span>
+        <span className="brand-subtitle">B A K E R S</span>
       </span>
     </Link>
   );
@@ -36,12 +29,10 @@ function BrandMark({ onClick }: { onClick?: () => void }) {
 export function AnnouncementBar() {
   return (
     <div className="announcement">
-      <Clock3 className="announcement-clock" size={14} aria-hidden="true" />
-      <span>Open Mon–Sat 8am–6:30pm</span>
-      <span aria-hidden="true">·</span>
-      <span>Closed Sundays</span>
-      <span aria-hidden="true">·</span>
-      <span>Meru, Kenya</span>
+      <span className="announcement-dot" />
+      <span>Fresh ideas, made to order in Meru</span>
+      <span className="announcement-divider">—</span>
+      <span>Let’s make something worth celebrating</span>
     </div>
   );
 }
@@ -60,33 +51,29 @@ export function MobileNavDrawer({
       <Dialog.Portal>
         <Dialog.Overlay className="mobile-nav-overlay" />
         <Dialog.Content className="mobile-drawer">
-          <div className="flex items-center justify-between">
+          <div className="mobile-drawer-head">
             <BrandMark onClick={() => onOpenChange(false)} />
-            <Dialog.Close
-              className="icon-button border-white/30 text-white"
-              aria-label="Close navigation"
-            >
+            <Dialog.Close className="icon-button" aria-label="Close navigation">
               <X size={20} />
             </Dialog.Close>
           </div>
           <Dialog.Title className="sr-only">Navigation menu</Dialog.Title>
           <nav aria-label="Mobile navigation">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => onOpenChange(false)}
-              >
-                {link.label}
+            {navLinks.map((link, index) => (
+              <Link key={link.href} href={link.href} onClick={() => onOpenChange(false)}>
+                <span>0{index + 1}</span>{link.label}<ArrowUpRight size={17} />
               </Link>
             ))}
             <Link href="/cart" onClick={() => onOpenChange(false)}>
-              Your Cart {count ? `(${count})` : ""}
+              <span>0{navLinks.length + 1}</span>
+              Your order {count ? "(" + count + ")" : ""}
+              <ShoppingBag size={17} />
             </Link>
           </nav>
-          <p className="mt-auto text-sm text-white/65">
-            Baked with love, made for your special moments.
-          </p>
+          <div className="mobile-drawer-note">
+            <span>BAKED IN MERU, KENYA</span>
+            <p>Good things are better when they’re shared.</p>
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
@@ -113,34 +100,23 @@ export function SiteHeader() {
           </button>
           <BrandMark />
           <nav className="desktop-nav" aria-label="Main navigation">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}
           </nav>
           <div className="header-actions">
+            <Link href="/shop" className="header-order-link">Order a cake <ArrowUpRight size={15} /></Link>
             <button
               type="button"
               className="cart-trigger"
-              aria-label={`Open cart, ${count} ${count === 1 ? "item" : "items"}`}
+              aria-label={"Open cart, " + count + " items"}
               onClick={() => setDrawerOpen(true)}
             >
               <ShoppingBag size={19} />
-              {count > 0 && (
-                <span className="cart-count" aria-live="polite">
-                  {count}
-                </span>
-              )}
+              {count > 0 && <span className="cart-count" aria-live="polite">{count}</span>}
             </button>
           </div>
         </div>
       </header>
-      <MobileNavDrawer
-        open={menuOpen}
-        onOpenChange={setMenuOpen}
-        count={count}
-      />
+      <MobileNavDrawer open={menuOpen} onOpenChange={setMenuOpen} count={count} />
     </>
   );
 }

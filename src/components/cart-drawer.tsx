@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useCart } from "@/components/cart-context";
 import { Sheet } from "@/components/ui";
-import { formatPrice } from "@/data/products";
 import { CartLine } from "@/components/cart-line";
 import { CakeSlice, ShoppingBag } from "lucide-react";
+import { formatPrice } from "@/data/products";
 
 export function CartDrawer() {
-  const { items, subtotal, drawerOpen, setDrawerOpen, hydrated } = useCart();
+  const { items, drawerOpen, setDrawerOpen, hydrated, subtotal } = useCart();
   return (
     <Sheet
       open={drawerOpen}
@@ -33,11 +33,11 @@ export function CartDrawer() {
           </div>
           <div className="border-t border-plum/15 pt-4">
             <div className="summary-row text-sm">
-              <span>Subtotal</span>
+              <span>Demo estimate</span>
               <strong className="text-plum">{formatPrice(subtotal)}</strong>
             </div>
             <p className="text-xs text-[#746b70]">
-              Delivery fee will be confirmed with Tina Bakers on WhatsApp.
+              Demo estimate only. Tina confirms the actual price, availability and delivery fee before payment.
             </p>
             <Link
               className="button button-plum mt-4 w-full"
@@ -61,7 +61,7 @@ export function CartDrawer() {
             <CakeSlice size={34} strokeWidth={1.2} />
           </span>
           <h3 className="font-display text-2xl text-plum">
-            Your cart looks a little empty 🎂
+            Your order is empty for now.
           </h3>
           <p className="mt-2 max-w-xs text-sm text-[#746b70]">
             Choose a cake and tell us how you’d like it made.
