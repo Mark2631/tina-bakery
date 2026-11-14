@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  --font-playfair: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-jakarta: "Aptos", "Segoe UI", Arial, sans-serif;
   --ink: #292321;
   --muted: #7c7069;
   --cream: #fffaf5;
@@ -145,15 +147,8 @@ img { max-width: 100%; }
   width: min(100% - 64px, 1280px); min-height: 88px; margin: auto;
   display: flex; align-items: center; justify-content: space-between; gap: 28px;
 }
-.brand-mark { display: inline-flex; align-items: center; gap: 10px; flex: 0 0 auto; color: var(--berry); }
-.brand-emblem {
-  width: 42px; height: 42px; display: grid; place-items: center;
-  border-radius: 50% 50% 50% 8px; background: var(--berry); color: var(--cream);
-  font-family: var(--font-playfair), Georgia, serif; font-size: 29px; font-style: italic; line-height: 1;
-}
-.brand-type { display: flex; flex-direction: column; align-items: flex-start; gap: 0; line-height: 1; }
-.brand-name { font-family: var(--font-playfair), Georgia, serif; font-size: 1.5rem; font-weight: 600; letter-spacing: -.04em; }
-.brand-subtitle { margin-top: 4px; color: var(--berry); font-size: .52rem; font-weight: 800; letter-spacing: .18em; }
+.brand-mark { width: 158px; height: 82px; flex: 0 0 158px; display: flex; align-items: center; justify-content: center; padding: 5px 8px; overflow: hidden; border-radius: 0 0 15px 15px; background: #fff0ee; }
+.brand-logo-image { display: block; width: 100%; height: 100%; object-fit: contain; }
 .desktop-nav { display: flex; align-items: center; justify-content: center; gap: clamp(18px, 2.4vw, 36px); }
 .desktop-nav a { color: #514640; font-size: .76rem; font-weight: 700; transition: color .18s ease; }
 .desktop-nav a:hover { color: var(--terracotta); }
@@ -352,11 +347,9 @@ img { max-width: 100%; }
 .site-footer { padding: 70px 0 20px; background: var(--berry-dark); color: #fff7ef; }
 .footer-top { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(130px,.7fr) minmax(160px,.8fr); gap: 70px; }
 .footer-brand-block > p { max-width: 330px; margin: 22px 0; color: rgba(255,247,239,.66); font-size: .79rem; line-height: 1.8; }
-.footer-wordmark { display: inline-flex; align-items: center; gap: 11px; color: #fff7ef; }
-.footer-emblem { width: 43px; height: 43px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.5); border-radius: 50% 50% 50% 8px; font-family: var(--font-playfair), Georgia, serif; font-size: 29px; font-style: italic; }
-.footer-wordmark > span:last-child { display: flex; flex-direction: column; line-height: 1; }
-.footer-wordmark strong { font-family: var(--font-playfair), Georgia, serif; font-size: 1.6rem; font-weight: 600; }
-.footer-wordmark small { margin-top: 5px; color: #e8baaa; font-size: .53rem; font-weight: 800; letter-spacing: .2em; }
+.footer-wordmark { display: inline-flex; align-items: center; }
+.footer-logo-panel { width: 205px; min-height: 116px; display: flex; align-items: center; justify-content: center; padding: 10px 13px; border-radius: 5px 32px 5px 5px; background: #fff0ee; }
+.footer-logo-image { display: block; width: 100%; height: auto; object-fit: contain; }
 .footer-whatsapp { display: inline-flex; align-items: center; gap: 9px; color: #f2d49a; font-size: .72rem; font-weight: 800; }
 .footer-column { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .footer-column h2 { margin: 0 0 7px; color: #f0d7aa; font-size: .65rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
@@ -457,7 +450,7 @@ body:has(.date-picker[data-open="true"]) .floating-wa { visibility: hidden; }
   .section-wrap, .header-inner, .hero-inner, .custom-cta-inner { width: min(100% - 42px,1280px); }
   .desktop-nav { gap: 13px; }
   .desktop-nav a { font-size: .66rem; }
-  .brand-emblem { width: 38px; height: 38px; }
+  .brand-mark { width: 142px; height: 78px; flex-basis: 142px; border-radius: 10px; }
   .brand-name { font-size: 1.35rem; }
   .hero-inner { min-height: auto; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: 24px; padding-block: 58px 66px; }
   .hero h1 { font-size: clamp(3.4rem,7vw,5.1rem); }
@@ -482,7 +475,7 @@ body:has(.date-picker[data-open="true"]) .floating-wa { visibility: hidden; }
   .mobile-menu-trigger { display: inline-flex; align-items: center; justify-content: center; }
   .desktop-nav { display: none; }
   .brand-mark { gap: 8px; }
-  .brand-emblem { width: 35px; height: 35px; font-size: 25px; }
+  .brand-mark { width: 116px; height: 64px; flex-basis: 116px; padding: 3px 5px; border-radius: 8px; }
   .brand-name { font-size: 1.25rem; }
   .brand-subtitle { font-size: .45rem; }
   .header-actions { margin-left: auto; }
