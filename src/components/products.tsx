@@ -17,7 +17,6 @@ export function ProductArtwork({
         src={product.imageUrl}
         alt={product.name + " styling reference"}
         fill
-        unoptimized
         sizes="(max-width: 640px) 48vw, (max-width: 1024px) 45vw, 25vw"
         className="product-art-image"
       />

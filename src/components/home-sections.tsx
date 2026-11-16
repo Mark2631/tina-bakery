@@ -69,7 +69,6 @@ export function HeroSection() {
               alt="An elegant celebration cake with fresh decoration, shown as a bakery style reference"
               fill
               priority
-              unoptimized
               sizes="(max-width: 760px) 100vw, 54vw"
               className="hero-photo"
             />
@@ -120,7 +119,7 @@ export function OccasionGrid() {
           {occasions.map((item, index) => (
             <Link className={"occasion-card occasion-card--" + item.tone} href={item.href} key={item.title}>
               <div className="occasion-card-image">
-                <Image src={item.image} alt={item.title + " styling reference"} fill unoptimized sizes="(max-width: 640px) 46vw, 24vw" />
+                <Image src={item.image} alt={item.title + " styling reference"} fill sizes="(max-width: 640px) 46vw, 24vw" />
               </div>
               <div className="occasion-card-copy">
                 <span>0{index + 1}</span>
@@ -166,7 +165,6 @@ export function StoryTeaser() {
             src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=1200&q=85"
             alt="Layered cake with elegant frosting details, shown as a visual reference"
             fill
-            unoptimized
             sizes="(max-width: 760px) 100vw, 48vw"
           />
           <span className="story-photo-note">A little care goes a long way.</span>
@@ -196,7 +194,6 @@ export function CustomCakeCta() {
             src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=1000&q=85"
             alt="Decorated cake used as a custom cake style reference"
             fill
-            unoptimized
             sizes="(max-width: 760px) 90vw, 38vw"
           />
         </div>

@@ -10,7 +10,6 @@ export function ProductGallery({ product }: { product: Product }) {
           alt={product.name + " style reference"}
           fill
           priority
-          unoptimized
           sizes="(max-width: 1024px) 100vw, 54vw"
           className="gallery-photo"
         />

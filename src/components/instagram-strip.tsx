@@ -27,7 +27,7 @@ export function InstagramStrip() {
         <div className="instagram-grid">
           {gallery.map((image) => (
             <Link className="insta-tile" href="https://www.instagram.com/tina.bakers" key={image.src} target="_blank" rel="noreferrer" aria-label="Visit Tina Bakers on Instagram">
-              <Image src={image.src} alt={image.alt} fill unoptimized sizes="(max-width: 640px) 42vw, 16vw" />
+              <Image src={image.src} alt={image.alt} fill sizes="(max-width: 640px) 42vw, 16vw" />
               <span className="insta-open"><Instagram size={18} /></span>
             </Link>
           ))}

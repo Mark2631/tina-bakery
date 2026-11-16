@@ -95,7 +95,6 @@ export default function AboutPage() {
               src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=1200&q=85"
               alt="Celebration cake detail used as a styling reference"
               fill
-              unoptimized
               sizes="(max-width: 900px) 90vw, 45vw"
             />
             <span className="story-photo-tag">A little love in every layer</span>
